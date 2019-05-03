@@ -6,7 +6,7 @@ struct TerrainVertex
 {
 	glm::vec3 pos;
 	glm::vec3 normal;
-	glm::vec3 texC;
+	glm::vec2 texC;
 };
 
 struct TerrainInfo
@@ -52,7 +52,7 @@ private:
 	GLuint m_vbo;
 
 	std::vector<TerrainVertex> m_vertices;
-	std::vector<GLuint> m_indices;
+	std::vector<int> m_indices;
 
 	void GenVB();
 	void GenIB();
@@ -78,6 +78,7 @@ private:
 	glm::vec2 m_texStartScale;
 	glm::vec2 m_texEndScale;
 
+	std::vector<glm::vec3> m_vecNormals;
 	//color
 	glm::vec3 m_color;
 

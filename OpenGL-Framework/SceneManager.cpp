@@ -50,18 +50,19 @@ void CSceneManager::Init()
 	newTerrain.NumCols = 513;
 	newTerrain.CellSpacing = 1.0f;
 	m_terrain = new CTerrain(newTerrain);
+
 	m_terrain->initTerrain();
 
 	/*Camera Setup*/
-	//CCameraManager::GetInstance().GetCam()->CamTarget(glm::vec3(0.0f, 0.0f, 0.0f) - CCameraManager::GetInstance().GetCam()->GetCamPos());
-	CCameraManager::GetInstance().GetCam()->CamTranslate(glm::vec3(0.0f, 0.0f, 0.0f));
+	CCameraManager::GetInstance().GetCam()->CamTarget(glm::vec3(0.0f, 0.0f, 0.0f) - CCameraManager::GetInstance().GetCam()->GetCamPos());
+	CCameraManager::GetInstance().GetCam()->CamTranslate(glm::vec3(30.0f, 80.0f, 0.0f));
 }
 
 void CSceneManager::Render()
 {
 	m_terrain->Render();
-//	m_menutext->Render();
-//	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
+	m_menutext->Render();
+	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
 
 }
 
