@@ -22,7 +22,6 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 	
-	
 	glutInitWindowPosition((GLfloat)glutGet(GLUT_WINDOW_WIDTH) / 2, (GLfloat)glutGet(GLUT_WINDOW_HEIGHT) / 2);
 	glutInitWindowSize(1024, 576);
 	glutCreateWindow("The Red Room");
@@ -56,17 +55,10 @@ void init()
 
 void render()
 {
-
-	glEnable(GL_SCISSOR_TEST);
-	glScissor(0, 72, 1024, 432);
-
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0);
 
 	CSceneManager::GetInstance().Render();
-
-	glDisable(GL_SCISSOR_TEST);
 
 	glutSwapBuffers();
 }

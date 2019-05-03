@@ -53,6 +53,9 @@
     <Filter Include="SceneManager">
       <UniqueIdentifier>{96fb9764-b856-41f6-9d85-c9db11a39a60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{a69f4480-374f-4382-b841-6b2dea946d7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -103,8 +106,8 @@
     <ClCompile Include="light.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
-    <ClCompile Include="stencilObj.cpp">
-      <Filter>Objects</Filter>
+    <ClCompile Include="CTerrain.cpp">
+      <Filter>Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,8 +163,8 @@
     <ClInclude Include="ModelMesh.h">
       <Filter>ModelLoader</Filter>
     </ClInclude>
-    <ClInclude Include="stencilObj.h">
-      <Filter>Objects</Filter>
+    <ClInclude Include="CTerrain.h">
+      <Filter>Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

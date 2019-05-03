@@ -18,7 +18,6 @@
 #include "Model.h"
 #include "ShaderLoader.h"
 #include "AudioManager.h"
-#include "stencilObj.h"
 
 struct Plane
 {
@@ -78,21 +77,7 @@ private:
 	//Global input
 	CInput* m_pInput;
 
-	CStencilObj* m_Stencil;
-
-	CObject* m_CubeObj;
-	CObject* m_SummonCircle;
-
-	CObject* m_Water;
-
-	CObject* m_StoneGround;
-	CObject* m_StoneAltar;
-
 	CObject* m_menuObj;
-
-	CObject* m_buttonBack;
-	CObject* m_button1;
-	CObject* m_button2;
 
 	TextLabel* m_menutext;
 };

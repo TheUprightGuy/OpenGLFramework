@@ -9,7 +9,7 @@
 #include "CCubeMap.h"
 #include <string>
 
-typedef struct 
+typedef struct OBJINIT
 {
 	std::string imgFilepath = "";
 	CCubeMap* _reflectCubemap = nullptr;

@@ -139,6 +139,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CCubeMap.cpp" />
+    <ClCompile Include="CTerrain.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="light.cpp" />
@@ -151,13 +152,13 @@
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="object.cpp" />
-    <ClCompile Include="stencilObj.cpp" />
     <ClCompile Include="TextLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CCubeMap.h" />
+    <ClInclude Include="CTerrain.h" />
     <ClInclude Include="CubeMesh.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="input.h" />
@@ -169,7 +170,6 @@
     <ClInclude Include="SpriteMesh.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="stencilObj.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="ShaderLoader.h" />
