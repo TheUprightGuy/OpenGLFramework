@@ -129,7 +129,6 @@
     <ClInclude Include="ShaderLoader.h">
       <Filter>Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h" />
     <ClInclude Include="input.h">
       <Filter>Input</Filter>
     </ClInclude>
@@ -165,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="CTerrain.h">
       <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

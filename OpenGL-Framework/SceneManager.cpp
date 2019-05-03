@@ -41,16 +41,27 @@ void CSceneManager::Init()
 	menuInfo.imgFilepath = "Resources/menu.png";
 	m_menuObj = new CObject(DEFAULT, MESH_2D_SPRITE, menuInfo);
 
+
+	TerrainInfo newTerrain;
+	newTerrain.HeightmapFilename = L"coastMountain513.raw";
+	newTerrain.HeightScale = 0.35f;
+	newTerrain.HeightOffset = -20.0f;
+	newTerrain.NumRows = 513;
+	newTerrain.NumCols = 513;
+	newTerrain.CellSpacing = 1.0f;
+	m_terrain = new CTerrain(newTerrain);
+	m_terrain->initTerrain();
+
 	/*Camera Setup*/
-	//CCameraManager::GetInstance().GetCam()->CamTarget(m_CubeObj->GetPos() - CCameraManager::GetInstance().GetCam()->GetCamPos());
-	//CCameraManager::GetInstance().GetCam()->CamTranslate(glm::vec3(0.0f, 3.0f, 8.0f));
+	//CCameraManager::GetInstance().GetCam()->CamTarget(glm::vec3(0.0f, 0.0f, 0.0f) - CCameraManager::GetInstance().GetCam()->GetCamPos());
+	CCameraManager::GetInstance().GetCam()->CamTranslate(glm::vec3(0.0f, 0.0f, 0.0f));
 }
 
 void CSceneManager::Render()
 {
-
-	m_menutext->Render();
-	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
+	m_terrain->Render();
+//	m_menutext->Render();
+//	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
 
 }
 

@@ -1,13 +1,38 @@
 #pragma once
 #include "utils.h"
+#include "CameraManager.h"
+#include "ProgramManager.h"
+struct TerrainVertex
+{
+	glm::vec3 pos;
+	glm::vec3 normal;
+	glm::vec3 texC;
+};
 
+struct TerrainInfo
+{
+	std::wstring HeightmapFilename;
+	float HeightScale;
+	float HeightOffset;
+	UINT NumRows;
+	UINT NumCols;
+	float CellSpacing;
+};
 
 class CTerrain
 {
 public:
 	CTerrain();
+	CTerrain(TerrainInfo& initInfo);
+
+	void initTerrain();
+	void Render();
+	
 	~CTerrain();
 private:
+
+	GLuint m_program;
+
 	// Get the heightmap from the RAW file
 	void loadHeightMap();
 
@@ -17,8 +42,45 @@ private:
 	//Smooth using this ^
 	void smooth();
 
-	std::vector<float> mHeightmap;
+	bool inBounds(UINT i, UINT j);
 
-public:
+	std::vector<float> m_Heightmap;
+	TerrainInfo m_Info;
+
+	GLuint m_ebo;
+	GLuint m_vao;
+	GLuint m_vbo;
+
+	std::vector<TerrainVertex> m_vertices;
+	std::vector<GLuint> m_indices;
+
+	void GenVB();
+	void GenIB();
+
+	GLuint IndiceCount;
+
+
+	GLuint m_texture;
+	bool m_isTextured;
+
+	//Translate
+	glm::vec3 m_objPosition;
+	//COORD m_objPixelPos;
+
+	//Scale
+	glm::vec3 m_objScale;
+
+	//Rotation
+	float m_RotationDegrees;
+	glm::vec3 m_RotAxis;
+
+	//Texture mapping
+	glm::vec2 m_texStartScale;
+	glm::vec2 m_texEndScale;
+
+	//color
+	glm::vec3 m_color;
+
+	float m_Alpha;
 };
 
