@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include  <math.h>
 
 CSceneManager* CSceneManager::s_pSceneManager = nullptr;
 
@@ -29,7 +30,7 @@ void CSceneManager::DestroyInstance()
 
 void CSceneManager::Init()
 {
-	m_program = CProgrammerManager::GetInstance().GetProgram(DEFAULT);
+	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
 
 	/*Menus and buttons*/
 	m_menutext = new TextLabel("Press Q for control list", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
@@ -42,27 +43,36 @@ void CSceneManager::Init()
 	m_menuObj = new CObject(DEFAULT, MESH_2D_SPRITE, menuInfo);
 
 
-	TerrainInfo newTerrain;
-	newTerrain.HeightmapFilename = L"coastMountain513.raw";
-	newTerrain.HeightScale = 0.35f;
-	newTerrain.HeightOffset = -20.0f;
-	newTerrain.NumRows = 513;
-	newTerrain.NumCols = 513;
-	newTerrain.CellSpacing = 1.0f;
-	m_terrain = new CTerrain(newTerrain);
+	//TerrainInfo newTerrain;
+	//newTerrain.HeightmapFilename = L"coastMountain513.raw";
+	//newTerrain.HeightScale = 0.35f;
+	//newTerrain.HeightOffset = -20.0f;
+	//newTerrain.NumRows = 513;
+	//newTerrain.NumCols = 513;
+	//newTerrain.CellSpacing = 1.0f;
 
-	m_terrain->initTerrain();
 
+	m_terrain = new Terrain();
+	m_terrain->Initialize();
 	/*Camera Setup*/
-	CCameraManager::GetInstance().GetCam()->CamTarget(glm::vec3(0.0f, 0.0f, 0.0f) - CCameraManager::GetInstance().GetCam()->GetCamPos());
-	CCameraManager::GetInstance().GetCam()->CamTranslate(glm::vec3(30.0f, 80.0f, 0.0f));
+	CCameraManager::GetInstance().GetCam()->CamTarget(glm::vec3(0.0f, 0.0f, 0.0f) );
+	CCameraManager::GetInstance().GetCam()->CamTranslate(glm::vec3(200.0f, 200.0f, 0.0f));
+
+	m_light = new CLight(m_program);
+	m_light->Position({ 500.0f, 1000.0f, 0.0f });
+
+
+	
+
 }
 
 void CSceneManager::Render()
 {
+	m_light->Render();
 	m_terrain->Render();
-	m_menutext->Render();
-	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
+
+	//m_menutext->Render();
+	//m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
 
 }
 
@@ -99,6 +109,71 @@ void CSceneManager::Process()
 	{
 		menuPerc += 0.2f;
 	}
+
+	//MenuHandling
+	/***********************************************************************/
+
+	static bool debugKeyIsPressed;
+	static bool bDebug = false;
+	if ((((CInput::GetInstance().GetKeyState('z') == INPUT_HOLD) || (CInput::GetInstance().GetKeyState('Z') == INPUT_HOLD))
+		&& !debugKeyIsPressed))
+	{
+		debugKeyIsPressed = true;
+		bDebug = !bDebug;
+	}
+	if ((CInput::GetInstance().GetKeyState('z') == INPUT_RELEASE) || (CInput::GetInstance().GetKeyState('Z') == INPUT_RELEASE))
+	{
+		debugKeyIsPressed = false;
+	}
+
+	if (bDebug) //All due for a rewrite
+
+	{
+		glm::vec3 translate = { 0.0f, 0.0f, 0.0f };
+		if (CInput::GetInstance().GetKeyState('w') == INPUT_HOLD)
+		{
+			translate.x += 5.0f;
+		}
+
+		if (CInput::GetInstance().GetKeyState('a') == INPUT_HOLD)
+		{
+			translate.z += 5.0f;
+		}
+
+		if (CInput::GetInstance().GetKeyState('s') == INPUT_HOLD)
+		{
+			translate.x -= 5.0f;
+		}
+
+		if (CInput::GetInstance().GetKeyState('d') == INPUT_HOLD)
+		{
+			translate.z -= 5.0f;
+		}
+
+		if (CInput::GetInstance().GetKeyState('r') == INPUT_HOLD)
+		{
+			translate.y += 5.0f;
+		}
+
+		if (CInput::GetInstance().GetKeyState('f') == INPUT_HOLD)
+		{
+			translate.y -= 5.0f;
+		}
+		CCameraManager::GetInstance().GetCam()->CamTranslate(CCameraManager::GetInstance().GetCam()->GetCamPos() + translate);
+
+		GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);
+		GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
+
+		//CCameraManager::GetInstance().GetCam()->AddYaw(1.0f);
+		glm::vec3 targetPos = CCameraManager::GetInstance().GetCam()->GetCamPos();
+		glm::vec3 mousePos = { CInput::GetInstance().GetMousePos().x / 6.0f, CInput::GetInstance().GetMousePos().y / 4.0f, 0.0f };
+		targetPos -= glm::vec3(std::cos(glm::radians(mousePos.y)), std::sin(glm::radians(mousePos.y)), 0.0f);
+		targetPos -= glm::vec3(std::sin(glm::radians(mousePos.x)), 0.0f, std::cos(glm::radians(mousePos.x)));
+		CCameraManager::GetInstance().GetCam()->CamTarget(targetPos);
+
+		
+	}
+	else { glutSetCursor(GLUT_CURSOR_INHERIT); }
 }
 
 //Takes a plane and point and evals position in regards to the plane

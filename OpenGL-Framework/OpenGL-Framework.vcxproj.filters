@@ -106,7 +106,7 @@
     <ClCompile Include="light.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
-    <ClCompile Include="CTerrain.cpp">
+    <ClCompile Include="terrain.cpp">
       <Filter>Terrain</Filter>
     </ClCompile>
   </ItemGroup>
@@ -162,11 +162,11 @@
     <ClInclude Include="ModelMesh.h">
       <Filter>ModelLoader</Filter>
     </ClInclude>
-    <ClInclude Include="CTerrain.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

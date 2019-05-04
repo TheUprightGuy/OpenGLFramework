@@ -18,7 +18,7 @@
 #include "Model.h"
 #include "ShaderLoader.h"
 #include "AudioManager.h"
-#include "CTerrain.h"
+#include "terrain.h"
 
 struct Plane
 {
@@ -82,7 +82,9 @@ private:
 
 	TextLabel* m_menutext;
 
-	CTerrain* m_terrain;
+	Terrain* m_terrain;
+
+	CLight* m_light;
 };
 
 #endif // !__SCENEMANAGER_H__

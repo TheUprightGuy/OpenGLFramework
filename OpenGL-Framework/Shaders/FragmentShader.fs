@@ -23,31 +23,22 @@ uniform bool isTextured;
 uniform vec3 setColor;
 
 
-
 void main(void)
 {	
 	//color = vec4((fragColor), 1.0);
 	vec4 colorval;
-	if(isTextured)
-	{
-		vec2 newCoords = vec2(fragTexCoord.x * fEndX, fragTexCoord.y * fEndY);
-		newCoords = vec2(newCoords.x + fStartX, newCoords.y + fStartY);
+	vec2 newCoords = vec2(fragTexCoord.x * fEndX, fragTexCoord.y * fEndY);
+	newCoords = vec2(newCoords.x + fStartX, newCoords.y + fStartY);
 
-		vec4 newAlpha = vec4(1.0, 1.0, 1.0, alpha);
-		vec4 texture = (texture(tex, newCoords) * newAlpha);
-		colorval = (texture);
-	}
-	else
-	{
-		colorval = vec4((setColor), 1.0);
-	}
-
+	vec4 newAlpha = vec4(1.0, 1.0, 1.0, alpha);
+	vec4 texture = (texture(tex, newCoords) * newAlpha);
+	colorval = (texture);
 	
 	float d = distance(mWorldPos.xyz, camPos);
-	float lerp = (d -10.0f)/10.f;
+	float lerp = (d -100.0f)/100.f;
 	lerp = clamp(lerp, 0.0, 1.0);
 	vec4 vFogColor = vec4(0.5f, 0.5f, 0.5f, 1.0f);
 	
-	color =  mix(colorval, vFogColor, lerp);
+	color =  colorval;
 	//color =  colorval;
 } 

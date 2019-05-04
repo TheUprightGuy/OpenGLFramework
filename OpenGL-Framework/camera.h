@@ -14,6 +14,8 @@ public:
 	glm::vec3 GetCamPos() { return(m_CamPos); }
 	glm::mat4 GetView();
 	glm::mat4 GetProj() { return(m_Proj); }
+	void AddYaw(float fDegrees);
+	void AddPitch(float fDegrees);
 
 	void CamTranslate(glm::vec3 _newPos) { m_CamPos = _newPos; }
 	void CamTarget(glm::vec3 _newPos) { m_TargetPos = _newPos; }
@@ -24,6 +26,6 @@ private:
 
 	glm::mat4 m_View;
 	glm::mat4 m_Proj;
-
+	glm::vec3 m_UpVec;
 };
 #endif // !__CAMERA_H__

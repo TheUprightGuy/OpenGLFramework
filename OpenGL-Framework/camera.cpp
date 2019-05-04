@@ -1,4 +1,5 @@
 #include "camera.h"
+#include <math.h>
 
 CCamera::CCamera(bool bIsOrtho)
 {
@@ -8,6 +9,7 @@ CCamera::CCamera(bool bIsOrtho)
 		glm::vec3(0.0f, 0.0f, 1.8f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f));
+	m_UpVec =  glm::vec3(0.0f, 1.0f, 0.0f);
 
 	GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);
 	GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
@@ -28,11 +30,22 @@ CCamera::~CCamera()
 
 glm::mat4 CCamera::GetView()
 {
-	m_View = 
+	m_View =
 		glm::lookAt(
-		m_CamPos,
-		m_TargetPos - m_CamPos,
-		glm::vec3(0.0f, 1.0f, 0.0f));
+			m_CamPos,
+			m_TargetPos,
+			m_UpVec);
 
-	return(m_View);
+	return m_View;
+}
+
+void CCamera::AddYaw(float fDegrees)
+{
+	m_TargetPos = m_CamPos +  glm::vec3(std::cos(glm::radians(fDegrees)), std::sin(glm::radians(fDegrees)), 1.0f);
+}
+
+void CCamera::AddPitch(float fDegrees)
+{
+	m_TargetPos = ( m_CamPos) + glm::vec3(0.0f, std::cos(glm::radians(fDegrees)), std::sin(glm::radians(fDegrees)));
+	m_UpVec = glm::cross(m_TargetPos, glm::vec3(0.0f, 1.0f, 0.0f));
 }

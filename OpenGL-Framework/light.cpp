@@ -8,8 +8,8 @@ CLight::CLight(GLuint& _program)
 	m_ambientColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	m_ambientStrength = 0.2f;
-	m_lightSpecStr = 0.7f;
-	m_shininess = 30.0f;
+	m_lightSpecStr = 0.1f;
+	m_shininess = 15.0f;
 }
 
 void CLight::Render()
