@@ -34,10 +34,18 @@ void CInput::UpdateMousePicking()
 
 CInput::CInput()
 {
-
+	ModifierKeyState = 0;
 	m_CurrentState = INPUT_RELEASE;
 	m_LookVec = glm::vec3(0.0f, 0.0f, 0.0f);
 
+	for (int i = 0; i < 255; i++)
+	{
+		KeyState[i] = INPUT_RELEASE;
+	}
+	for (int i = 0; i < 21; i++)
+	{
+		SpecialKeyStates[i] = INPUT_RELEASE;
+	}
 }
 
 CInput::~CInput()

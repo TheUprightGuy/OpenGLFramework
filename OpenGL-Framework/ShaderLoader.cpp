@@ -54,8 +54,10 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 }
 
 GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename,
-	char* fragmentShaderFilename)
+	char* fragmentShaderFilename, char * geoShaderFilename)
 {
+	//Mandatory Shader Attachement
+	/*****************************/
 
 	//read the shader files and save the code
 	std::string vertex_shader_code = ReadShader(vertexShaderFilename);
@@ -63,6 +65,7 @@ GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename,
 
 	GLuint vertex_shader = CreateShader(GL_VERTEX_SHADER, vertex_shader_code, "vertex shader");
 	GLuint fragment_shader = CreateShader(GL_FRAGMENT_SHADER, fragment_shader_code, "fragment shader");
+	
 
 	int link_result = 0;
 
@@ -70,13 +73,24 @@ GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename,
 	GLuint program = glCreateProgram();
 	glAttachShader(program, vertex_shader);
 	glAttachShader(program, fragment_shader);
+	/*****************************/
+
+	//Optional Shader Attachement
+	/*****************************/
+	if (geoShaderFilename != nullptr)
+	{
+		std::string geometry_shader_code = ReadShader(geoShaderFilename);
+		GLuint geometry_shader = CreateShader(GL_GEOMETRY_SHADER, geometry_shader_code, "geometry shader");
+		glAttachShader(program, geometry_shader);
+	}
+	/*****************************/
 
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
 	//check for link errors
+
 	if (link_result == GL_FALSE)
 	{
-
 		int info_log_length = 0;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
 		std::vector<char> program_log(info_log_length);

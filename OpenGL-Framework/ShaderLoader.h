@@ -17,6 +17,6 @@ class ShaderLoader
 		ShaderLoader(void);
 		~ShaderLoader(void);
 		GLuint CreateProgram(char* VertexShaderFilename,
-			char* FragmentShaderFilename);
+			char* FragmentShaderFilename, char * geoShaderFile = nullptr);
 
 };

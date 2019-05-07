@@ -56,14 +56,9 @@ void CSceneManager::Init()
 	m_terrain = new Terrain();
 	m_terrain->Initialize();
 	/*Camera Setup*/
-	CCameraManager::GetInstance().GetCam()->CamTarget(glm::vec3(0.0f, 0.0f, 0.0f) );
-	CCameraManager::GetInstance().GetCam()->SetCamPos(glm::vec3(200.0f, 200.0f, 0.0f));
 
 	m_light = new CLight(m_program);
-	m_light->Position({ 500.0f, 1000.0f, 0.0f });
-
-
-	
+	m_light->Position({ 50.0f, 1000.0f, 0.0f });
 
 }
 
@@ -72,8 +67,8 @@ void CSceneManager::Render()
 	m_light->Render();
 	m_terrain->Render();
 
-	//m_menutext->Render();
-	//m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
+	m_menutext->Render();
+	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
 
 }
 
@@ -83,25 +78,15 @@ void CSceneManager::Process()
 	float deltaTime = newFrameTime - oldDeltaTime;
 	oldDeltaTime = (glutGet(GLUT_ELAPSED_TIME) / 1000.0f);
 
-
-	
-	CCameraManager::GetInstance().DebugCamera(deltaTime, 100.0f);
 	//MenuHandling
 	/***********************************************************************/
 	static bool menuState = false;
-	static bool KeyIsPressed;
 	static float menuPerc = 1.0f;
 
-	if ((((CInput::GetInstance().GetKeyState('q') == INPUT_HOLD) || (CInput::GetInstance().GetKeyState('Q') == INPUT_HOLD))
-		&& !KeyIsPressed))
+	if ((CInput::GetInstance().GetKeyState('q') == INPUT_FIRST_PRESS) || (CInput::GetInstance().GetKeyState('Q') == INPUT_FIRST_PRESS))
 	{
-		KeyIsPressed = true;
 		menuState = !menuState;
 		menuPerc = 0.0f;
-	}
-	if ((CInput::GetInstance().GetKeyState('q') == INPUT_RELEASE) || (CInput::GetInstance().GetKeyState('Q') == INPUT_RELEASE))
-	{
-		KeyIsPressed = false;
 	}
 
 	if (menuState)
@@ -120,21 +105,28 @@ void CSceneManager::Process()
 
 	//MenuHandling
 	/***********************************************************************/
-
+	
 	static bool debugKeyIsPressed;
 	static bool bDebug = false;
-	if ((((CInput::GetInstance().GetKeyState('z') == INPUT_HOLD) || (CInput::GetInstance().GetKeyState('Z') == INPUT_HOLD))
-		&& !debugKeyIsPressed))
+	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F3) == INPUT_HOLD)
+		&& !debugKeyIsPressed)
 	{
 		debugKeyIsPressed = true;
 		bDebug = !bDebug;
 	}
-	if ((CInput::GetInstance().GetKeyState('z') == INPUT_RELEASE) || (CInput::GetInstance().GetKeyState('Z') == INPUT_RELEASE))
+	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F3) == INPUT_RELEASE))
 	{
 		debugKeyIsPressed = false;
 	}
+	if (bDebug)
+	{
+		CCameraManager::GetInstance().DebugCamera(deltaTime, 100.0f);
+	}
+	else
+	{
+		glutSetCursor(GLUT_CURSOR_INHERIT);
+	}
 
-	
 }
 
 //Takes a plane and point and evals position in regards to the plane

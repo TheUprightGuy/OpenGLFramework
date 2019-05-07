@@ -14,6 +14,9 @@ void render();
 void update();
 void KeyDown(unsigned char key, int x, int y);
 void KeyUp(unsigned char key, int x, int y);
+void SpecialKeyUp(int key, int x, int y);
+void SpecialKeyDown(int key, int x, int y);
+
 void Mouse(int button, int glutState, int x, int y);
 void PassiveMouse(int x, int y);
 
@@ -28,7 +31,6 @@ int main(int argc, char **argv)
 
 	glutSetOption(GLUT_MULTISAMPLE, 12);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
-
 	glewInit();
 	init();
 
@@ -38,14 +40,16 @@ int main(int argc, char **argv)
 
 	glutKeyboardFunc(KeyDown);
 	glutKeyboardUpFunc(KeyUp);
+
+	glutSpecialFunc(SpecialKeyDown);
+	glutSpecialUpFunc(SpecialKeyUp);
+
 	glutMouseFunc(Mouse); 
 	glutPassiveMotionFunc(PassiveMouse);
 
 	glutMainLoop();
 
-
 	return(0);
-
 }
 void init()
 {
@@ -77,6 +81,16 @@ void KeyDown(unsigned char key, int x, int y)
 void KeyUp(unsigned char key, int x, int y)
 {
 	CInput::GetInstance().KeyboardUp(key, x, y);
+}
+
+void SpecialKeyUp(int key, int x, int y)
+{
+	CInput::GetInstance().SpecialKeyUp(key, x, y);
+}
+
+void SpecialKeyDown(int key, int x, int y)
+{
+	CInput::GetInstance().SpecialKeyDown(key, x, y);
 }
 
 void Mouse(int button, int glutState, int x, int y)

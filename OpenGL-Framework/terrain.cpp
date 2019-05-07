@@ -337,15 +337,19 @@ void Terrain::Render()
 	// Set Culling and Use program	
 	glUseProgram(m_program);
 
+	glCullFace(GL_BACK); // Cull the Back faces
+	glFrontFace(GL_CCW); // Front face is Clockwise order
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	m_light->Render();
-
 	
 	glUniformMatrix4fv(glGetUniformLocation(m_program, "model"), 1, GL_FALSE, value_ptr(glm::mat4()));
 
 	// Pass mvp to shader
-	glm::mat4 MVP = CCameraManager::GetInstance().GetCam()->GetProj() * CCameraManager::GetInstance().GetCam()->GetView() * glm::mat4();
+	glm::mat4 MVP = CCameraManager::GetInstance().GetCam()->GetProj() * CCameraManager::GetInstance().GetCam()->GetView();
 
 	GLint MVPloc = glGetUniformLocation(m_program, "MVP");
 	glUniformMatrix4fv(MVPloc, 1, GL_FALSE, value_ptr(MVP));
@@ -369,4 +373,7 @@ void Terrain::Render()
 	glDrawElements(GL_TRIANGLES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
 }
