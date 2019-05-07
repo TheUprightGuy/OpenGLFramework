@@ -71,7 +71,7 @@ void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
 
 	glm::vec3 movement = {0.0f, 0.0f, 0.0f};
 
-	
+	//testing
 	if ((CInput::GetInstance().GetKeyState('w') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('W') == INPUT_HOLD)
 	{
 		//movement.x += dx;
