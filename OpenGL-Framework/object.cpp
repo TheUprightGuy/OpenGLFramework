@@ -68,7 +68,7 @@ void CObject::Render(CCamera* _pCamera)
 	/************************************///Rotation Matrix
 	glm::vec3 rotAxis = glm::vec3(0.0f, 0.0f, 1.0f);
 	glm::mat4 rotation = glm::rotate(glm::mat4(), glm::radians(m_RotationDegrees), m_RotAxis);
-
+	
 	/************************************///Scale matrix
 	glm::mat4 scale = glm::scale(glm::mat4(), m_objScale); 
 

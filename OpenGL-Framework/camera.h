@@ -11,13 +11,25 @@ public:
 	CCamera(bool bIsOrtho);
 	~CCamera();
 
+	void SetCamPos(glm::vec3 _newPos) { m_CamPos = _newPos; }
+
 	glm::vec3 GetCamPos() { return(m_CamPos); }
-	glm::mat4 GetView();
+	glm::mat4 GetView() { return(m_View); };
 	glm::mat4 GetProj() { return(m_Proj); }
+
+	void SetView(glm::mat4 _newView) { m_View = _newView; }
+	void UpdateView()
+	{
+		m_View =
+			glm::lookAt(
+				m_CamPos,
+				m_TargetPos,
+				m_UpVec);
+	}
+
 	void AddYaw(float fDegrees);
 	void AddPitch(float fDegrees);
 
-	void CamTranslate(glm::vec3 _newPos) { m_CamPos = _newPos; }
 	void CamTarget(glm::vec3 _newPos) { m_TargetPos = _newPos; }
 
 private:

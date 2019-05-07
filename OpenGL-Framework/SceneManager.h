@@ -75,6 +75,7 @@ private:
 	//Variables
 	GLuint m_program;
 
+	float oldDeltaTime;
 	//Global input
 	CInput* m_pInput;
 
