@@ -1,5 +1,6 @@
 #include "CameraManager.h"
 
+
 CCameraManager* CCameraManager::s_pCameraManager = nullptr;
 
 CCameraManager::CCameraManager(bool _createStarterCam /* = true */)
@@ -53,6 +54,103 @@ CCamera * CCameraManager::GetOrthoCam()
 	}
 
 	return(orthoCam);
+}
+
+void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
+{
+	glutSetCursor(GLUT_CURSOR_NONE);
+
+	float distance = _movementSpeed * _deltaTime;
+
+	static float yaw = 0.0f;
+	static float pitch = 0.0f;
+	static float roll = 0.0f;
+
+	float dx = std::sin(glm::radians(yaw))/** distance*/;
+	float dz = std::cos(glm::radians(yaw))/** distance*/;
+
+	glm::vec3 movement = {0.0f, 0.0f, 0.0f};
+
+	
+	if ((CInput::GetInstance().GetKeyState('w') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('W') == INPUT_HOLD)
+	{
+		//movement.x += dx;
+		movement.z -= dz;
+	}
+
+	if ((CInput::GetInstance().GetKeyState('a') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('A') == INPUT_HOLD)
+	{
+		movement.x -= dz;
+		//movement.z -= dz;
+	}
+
+	if ((CInput::GetInstance().GetKeyState('s') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('S') == INPUT_HOLD)
+	{
+		//movement.x -= dx;
+		movement.z += dz;
+	}
+
+	if ((CInput::GetInstance().GetKeyState('d') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('D') == INPUT_HOLD)
+	{
+		movement.x += dz;
+		//movement.z += dx;
+	}
+
+	if ((CInput::GetInstance().GetKeyState('r') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('R') == INPUT_HOLD)
+	{
+		movement.y -= distance;
+	}
+	if ((CInput::GetInstance().GetKeyState('f') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('F') == INPUT_HOLD)
+	{
+		movement.y += distance;
+	}
+
+	GetCam()->SetCamPos(GetCam()->GetCamPos() + movement);
+
+	glm::vec2 mousePos = { CInput::GetInstance().GetMousePos().x, CInput::GetInstance().GetMousePos().y };
+	GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);
+	GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
+
+	bool center = false;
+	if (mousePos.x > fWidth / 2 + 30)
+	{
+		pitch -= 2;
+		center = true;
+	}
+	else if (mousePos.x < fWidth / 2 - 30)
+	{
+		pitch += 2;
+		center = true;
+	}
+
+	if (mousePos.y > fHeight / 2 + 30)
+	{
+		yaw += 5;
+		center = true;
+	}
+	else if (mousePos.y < fHeight / 2 - 30)
+	{
+		yaw -= 5;
+		center = true;
+	}
+
+	if (center)
+	{
+	
+		glutWarpPointer(fWidth / 2, fHeight / 2);
+	}
+
+	glm::vec3 camPos = GetCam()->GetCamPos();
+	camPos *= -1;
+
+	glm::mat4 view = glm::translate(glm::mat4(), camPos);
+
+	view *= glm::rotate(glm::mat4(), glm::radians(yaw), {1.0f, 0.0f, 0.0f});
+	view *= glm::rotate(glm::mat4(), glm::radians(pitch), { 0.0f, 1.0f, 0.0f });
+	view *= glm::rotate(glm::mat4(), glm::radians(roll), { 0.0f, 0.0f, 1.0f });
+
+	GetCam()->SetView(view);
+
 }
 
 CCameraManager & CCameraManager::GetInstance()

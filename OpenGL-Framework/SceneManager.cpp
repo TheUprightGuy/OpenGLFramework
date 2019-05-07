@@ -32,6 +32,7 @@ void CSceneManager::Init()
 {
 	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
 
+	oldDeltaTime = 1.0f;
 	/*Menus and buttons*/
 	m_menutext = new TextLabel("Press Q for control list", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
 	m_menutext->SetScale(0.06f);
@@ -56,7 +57,7 @@ void CSceneManager::Init()
 	m_terrain->Initialize();
 	/*Camera Setup*/
 	CCameraManager::GetInstance().GetCam()->CamTarget(glm::vec3(0.0f, 0.0f, 0.0f) );
-	CCameraManager::GetInstance().GetCam()->CamTranslate(glm::vec3(200.0f, 200.0f, 0.0f));
+	CCameraManager::GetInstance().GetCam()->SetCamPos(glm::vec3(200.0f, 200.0f, 0.0f));
 
 	m_light = new CLight(m_program);
 	m_light->Position({ 500.0f, 1000.0f, 0.0f });
@@ -78,6 +79,13 @@ void CSceneManager::Render()
 
 void CSceneManager::Process()
 {	
+	float newFrameTime = (glutGet(GLUT_ELAPSED_TIME) / 1000.0f);
+	float deltaTime = newFrameTime - oldDeltaTime;
+	oldDeltaTime = (glutGet(GLUT_ELAPSED_TIME) / 1000.0f);
+
+
+	
+	CCameraManager::GetInstance().DebugCamera(deltaTime, 100.0f);
 	//MenuHandling
 	/***********************************************************************/
 	static bool menuState = false;
@@ -126,54 +134,7 @@ void CSceneManager::Process()
 		debugKeyIsPressed = false;
 	}
 
-	if (bDebug) //All due for a rewrite
-
-	{
-		glm::vec3 translate = { 0.0f, 0.0f, 0.0f };
-		if (CInput::GetInstance().GetKeyState('w') == INPUT_HOLD)
-		{
-			translate.x += 5.0f;
-		}
-
-		if (CInput::GetInstance().GetKeyState('a') == INPUT_HOLD)
-		{
-			translate.z += 5.0f;
-		}
-
-		if (CInput::GetInstance().GetKeyState('s') == INPUT_HOLD)
-		{
-			translate.x -= 5.0f;
-		}
-
-		if (CInput::GetInstance().GetKeyState('d') == INPUT_HOLD)
-		{
-			translate.z -= 5.0f;
-		}
-
-		if (CInput::GetInstance().GetKeyState('r') == INPUT_HOLD)
-		{
-			translate.y += 5.0f;
-		}
-
-		if (CInput::GetInstance().GetKeyState('f') == INPUT_HOLD)
-		{
-			translate.y -= 5.0f;
-		}
-		CCameraManager::GetInstance().GetCam()->CamTranslate(CCameraManager::GetInstance().GetCam()->GetCamPos() + translate);
-
-		GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);
-		GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
-
-		//CCameraManager::GetInstance().GetCam()->AddYaw(1.0f);
-		glm::vec3 targetPos = CCameraManager::GetInstance().GetCam()->GetCamPos();
-		glm::vec3 mousePos = { CInput::GetInstance().GetMousePos().x / 6.0f, CInput::GetInstance().GetMousePos().y / 4.0f, 0.0f };
-		targetPos -= glm::vec3(std::cos(glm::radians(mousePos.y)), std::sin(glm::radians(mousePos.y)), 0.0f);
-		targetPos -= glm::vec3(std::sin(glm::radians(mousePos.x)), 0.0f, std::cos(glm::radians(mousePos.x)));
-		CCameraManager::GetInstance().GetCam()->CamTarget(targetPos);
-
-		
-	}
-	else { glutSetCursor(GLUT_CURSOR_INHERIT); }
+	
 }
 
 //Takes a plane and point and evals position in regards to the plane
