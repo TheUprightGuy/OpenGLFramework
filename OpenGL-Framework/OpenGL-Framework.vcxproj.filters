@@ -56,6 +56,9 @@
     <Filter Include="Terrain">
       <UniqueIdentifier>{a69f4480-374f-4382-b841-6b2dea946d7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cloth">
+      <UniqueIdentifier>{295c713c-e618-4612-83fe-8e76be8d246f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -108,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="terrain.cpp">
       <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="CCloth.cpp">
+      <Filter>Cloth</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="terrain.h">
       <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="CCloth.h">
+      <Filter>Cloth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
