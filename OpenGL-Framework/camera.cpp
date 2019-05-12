@@ -20,7 +20,8 @@ CCamera::CCamera(bool bIsOrtho)
 	}
 	else
 	{
-		m_Proj = glm::perspectiveFov(45.0f, fWidth, fHeight, 0.1f, 10000.0f);
+		float toRadians = glm::radians(80.0f);
+		m_Proj = glm::perspectiveFov(toRadians, fWidth, fHeight, 0.1f, 10000.0f);
 	}
 }
 
@@ -28,16 +29,6 @@ CCamera::~CCamera()
 {
 }
 
-glm::mat4 CCamera::GetView()
-{
-	m_View =
-		glm::lookAt(
-			m_CamPos,
-			m_TargetPos,
-			m_UpVec);
-
-	return m_View;
-}
 
 void CCamera::AddYaw(float fDegrees)
 {

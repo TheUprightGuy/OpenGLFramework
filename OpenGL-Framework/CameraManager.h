@@ -4,6 +4,8 @@
 
 #include "utils.h"
 #include "camera.h"
+#include "input.h"
+#include <math.h>
 
 class CCameraManager
 {
@@ -11,6 +13,7 @@ public:
 	~CCameraManager();
 
 	void init();
+
 	//Creates a new cam and returns the index
 	int AddNewCam();
 
@@ -20,6 +23,8 @@ public:
 	CCamera* GetCam();
 
 	CCamera* GetOrthoCam();
+
+	void DebugCamera(float _deltaTime, float _movementSpeed);
 
 	static CCameraManager& GetInstance();
 	static void DestroyInstance();
