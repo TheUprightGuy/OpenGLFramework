@@ -121,23 +121,23 @@ void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
 	bool center = false;
 	if (mousePos.x > fWidth / 2 + 10)
 	{
-		pitch += 2;
+		pitch += 4;
 		center = true;
 	}
 	else if (mousePos.x < fWidth / 2 - 10)
 	{
-		pitch -= 2;
+		pitch -= 4;
 		center = true;
 	}
 
 	if (mousePos.y > fHeight / 2 + 10)
 	{
-		yaw += 2;
+		yaw += 4;
 		center = true;
 	}
 	else if (mousePos.y < fHeight / 2 - 10)
 	{
-		yaw -= 2;
+		yaw -= 4;
 		center = true;
 	}
 

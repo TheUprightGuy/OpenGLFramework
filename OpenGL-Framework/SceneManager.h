@@ -19,6 +19,7 @@
 #include "ShaderLoader.h"
 #include "AudioManager.h"
 #include "terrain.h"
+#include "GeoModel.h"
 
 struct Plane
 {
@@ -86,6 +87,8 @@ private:
 	Terrain* m_terrain;
 
 	CLight* m_light;
+
+	CGeometryModel* m_geoModel;
 };
 
 #endif // !__SCENEMANAGER_H__

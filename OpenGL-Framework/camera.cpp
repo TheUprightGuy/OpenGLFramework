@@ -22,6 +22,7 @@ CCamera::CCamera(bool bIsOrtho)
 	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 1.0f, 0.0f });
 	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 0.0f, 1.0f });
 	view *= glm::translate(glm::mat4(), camPos);
+
 	m_View = view; //I'll do it myself then >:(
 
 	GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);

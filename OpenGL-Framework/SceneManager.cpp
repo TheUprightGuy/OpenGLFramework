@@ -60,15 +60,24 @@ void CSceneManager::Init()
 	m_light = new CLight(m_program);
 	m_light->Position({ 50.0f, 1000.0f, 0.0f });
 
+	ShaderLoader GeoLoader;
+	GLuint GeoProg = GeoLoader.CreateProgram("Shaders/GeoVertexShader.vs", "Shaders/GeoFragmentShader.fs", "Shaders/GeoGeometryShader.gs");
+
+	m_geoModel = new CGeometryModel(GeoProg);
+	m_geoModel->SetPosition({ 0.0f, 50.0f, -10.0f });
 }
 
 void CSceneManager::Render()
 {
+
+	
 	m_light->Render();
 	m_terrain->Render();
 
 	m_menutext->Render();
 	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
+
+	m_geoModel->Render();
 
 }
 

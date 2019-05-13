@@ -46,7 +46,7 @@ Terrain::Terrain()
 	m_fWidth = static_cast<float>(m_iNumCols);
 	m_fDepth = static_cast<float>(m_iNumRows);
 
-	m_strFilePath = "jack.raw";
+	m_strFilePath = "coastMountain513.raw";
 }
 
 Terrain::~Terrain()

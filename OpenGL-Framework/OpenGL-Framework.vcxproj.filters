@@ -77,6 +77,9 @@
     <Filter Include="Shaders\VS &amp; FS ShaderFiles\TextShader">
       <UniqueIdentifier>{0e199dcd-5fa5-4f23-bb84-4c2b7a85583c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GeometryModel">
+      <UniqueIdentifier>{60cb9258-dedb-42a0-be61-bea130d16fdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -129,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="terrain.cpp">
       <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="GeoModel.cpp">
+      <Filter>GeometryModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +195,9 @@
     <ClInclude Include="camera.h">
       <Filter>Camera\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="GeoModel.h">
+      <Filter>GeometryModel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\FragmentShader.fs">
@@ -226,6 +235,15 @@
     </None>
     <None Include="Shaders\Text.vs">
       <Filter>Shaders\VS &amp; FS ShaderFiles\TextShader</Filter>
+    </None>
+    <None Include="Shaders\GeoFragmentShader.fs">
+      <Filter>Shaders\Geo Shaders</Filter>
+    </None>
+    <None Include="Shaders\GeoGeometryShader.gs">
+      <Filter>Shaders\Geo Shaders</Filter>
+    </None>
+    <None Include="Shaders\GeoVertexShader.vs">
+      <Filter>Shaders\Geo Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
