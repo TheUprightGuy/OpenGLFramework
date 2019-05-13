@@ -65,6 +65,14 @@ void CSceneManager::Init()
 
 	m_geoModel = new CGeometryModel(GeoProg);
 	m_geoModel->SetPosition({ 0.0f, 50.0f, -10.0f });
+
+	GLuint tessProgram = GeoLoader.CreateProgram("Shaders/TessVertexShader.vs",
+		"Shaders/TessFragmentShader.fs", nullptr,
+		"Shaders/tessQuadModel.tcs",
+		"Shaders/tessQuadModel.tes");
+
+	m_tessModel = new CTessModel(tessProgram);
+	m_tessModel->SetPos(glm::vec3(0.0f, 50.0f, -5.0f));
 }
 
 void CSceneManager::Render()
@@ -79,6 +87,7 @@ void CSceneManager::Render()
 
 	m_geoModel->Render();
 
+	m_tessModel->Render();
 }
 
 void CSceneManager::Process()

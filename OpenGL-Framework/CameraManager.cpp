@@ -119,23 +119,23 @@ void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
 	GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
 
 	bool center = false;
-	if (mousePos.x > fWidth / 2 + 10)
+	if (mousePos.x > fWidth / 2 + 5)
 	{
 		pitch += 4;
 		center = true;
 	}
-	else if (mousePos.x < fWidth / 2 - 10)
+	else if (mousePos.x < fWidth / 2 - 5)
 	{
 		pitch -= 4;
 		center = true;
 	}
 
-	if (mousePos.y > fHeight / 2 + 10)
+	if (mousePos.y > fHeight / 2 + 5)
 	{
 		yaw += 4;
 		center = true;
 	}
-	else if (mousePos.y < fHeight / 2 - 10)
+	else if (mousePos.y < fHeight / 2 - 5)
 	{
 		yaw -= 4;
 		center = true;

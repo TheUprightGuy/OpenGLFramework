@@ -153,6 +153,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="TessModel.cpp" />
     <ClCompile Include="TextLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="terrain.h" />
+    <ClInclude Include="TessModel.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="ShaderLoader.h" />
@@ -190,6 +192,12 @@
     <None Include="Shaders\PhongLightingVS.vs" />
     <None Include="Shaders\ReflectFS.fs" />
     <None Include="Shaders\ReflectVS.vs" />
+    <None Include="Shaders\terrainTess.tcs" />
+    <None Include="Shaders\terrainTess.tes" />
+    <None Include="Shaders\TessFragmentShader.fs" />
+    <None Include="Shaders\tessQuadModel.tcs" />
+    <None Include="Shaders\tessQuadModel.tes" />
+    <None Include="Shaders\TessVertexShader.vs" />
     <None Include="Shaders\Text.fs" />
     <None Include="Shaders\Text.vs" />
     <None Include="Shaders\VertexShader.vs" />

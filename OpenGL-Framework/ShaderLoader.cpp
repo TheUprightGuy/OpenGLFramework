@@ -54,7 +54,8 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 }
 
 GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename,
-	char* fragmentShaderFilename, char * geoShaderFilename)
+	char* fragmentShaderFilename, char* geoShaderFilename,
+	char* TessControlShaderFile, char* TessEvalShaderFile)
 {
 	//Mandatory Shader Attachement
 	/*****************************/
@@ -82,6 +83,16 @@ GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename,
 		std::string geometry_shader_code = ReadShader(geoShaderFilename);
 		GLuint geometry_shader = CreateShader(GL_GEOMETRY_SHADER, geometry_shader_code, "geometry shader");
 		glAttachShader(program, geometry_shader);
+	}
+	if (TessEvalShaderFile != nullptr && TessControlShaderFile != nullptr)
+	{
+		std::string tessControl_shader_code = ReadShader(TessControlShaderFile);
+		std::string tessEval_shader_code = ReadShader(TessEvalShaderFile);
+
+		GLuint tessControl_shader = CreateShader(GL_TESS_CONTROL_SHADER, tessControl_shader_code, "tessControl shader");
+		GLuint tessEval_shader = CreateShader(GL_TESS_EVALUATION_SHADER, tessEval_shader_code, "tessEvalutionshader");
+		glAttachShader(program, tessControl_shader);
+		glAttachShader(program, tessEval_shader);
 	}
 	/*****************************/
 

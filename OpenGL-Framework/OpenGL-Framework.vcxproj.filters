@@ -80,6 +80,9 @@
     <Filter Include="GeometryModel">
       <UniqueIdentifier>{60cb9258-dedb-42a0-be61-bea130d16fdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tessellation">
+      <UniqueIdentifier>{33282e56-c70c-4cd1-955b-68d4ea3660a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -135,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="GeoModel.cpp">
       <Filter>GeometryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="TessModel.cpp">
+      <Filter>Tessellation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +204,9 @@
     <ClInclude Include="GeoModel.h">
       <Filter>GeometryModel</Filter>
     </ClInclude>
+    <ClInclude Include="TessModel.h">
+      <Filter>Tessellation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\FragmentShader.fs">
@@ -244,6 +253,24 @@
     </None>
     <None Include="Shaders\GeoVertexShader.vs">
       <Filter>Shaders\Geo Shaders</Filter>
+    </None>
+    <None Include="Shaders\tessQuadModel.tcs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\tessQuadModel.tes">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\TessFragmentShader.fs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\TessVertexShader.vs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\terrainTess.tcs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\terrainTess.tes">
+      <Filter>Shaders\TesselationShaders</Filter>
     </None>
   </ItemGroup>
 </Project>

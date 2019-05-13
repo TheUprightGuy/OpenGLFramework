@@ -56,10 +56,17 @@ Terrain::~Terrain()
 void Terrain::Initialize()
 {
 	// Create program
-	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
+	ShaderLoader shaderLoader;
 
+	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
+	/*m_program = shaderLoader.CreateProgram("Shaders/PhongLightingVS.vs", "Shaders/PhongLightingFS.fs", nullptr,
+		"Shaders/tessQuadModel.tcs",
+		"Shaders/tessQuadModel.tes");
+		*/
 	LoadHeightMap();
 	Smooth();
+
+	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
 
 	BuildVertexBuffer();
 	BuildIndexBuffer();

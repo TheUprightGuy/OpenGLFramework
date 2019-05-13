@@ -20,6 +20,7 @@
 #include "AudioManager.h"
 #include "terrain.h"
 #include "GeoModel.h"
+#include "TessModel.h"
 
 struct Plane
 {
@@ -89,6 +90,7 @@ private:
 	CLight* m_light;
 
 	CGeometryModel* m_geoModel;
+	CTessModel* m_tessModel;
 };
 
 #endif // !__SCENEMANAGER_H__
