@@ -17,6 +17,9 @@ CFrameBuffer::CFrameBuffer(GLuint program)
 		0, 2, 3 // Second Triangle
 	};
 	
+	GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);
+	GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
+
 	glGenVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);
 
@@ -41,7 +44,7 @@ CFrameBuffer::CFrameBuffer(GLuint program)
 	glBindVertexArray(0);
 
 	glGenTextures(1, &m_renderTexture); glBindTexture(GL_TEXTURE_2D, m_renderTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1280, 720,
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, fWidth, fHeight,
 		0, //border 
 		GL_RGB, //format
 		GL_UNSIGNED_BYTE, //data type ,
@@ -62,8 +65,9 @@ CFrameBuffer::CFrameBuffer(GLuint program)
 	glGenRenderbuffers(1, &m_rbo);
 	glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
 
+	
 	glRenderbufferStorage(GL_RENDERBUFFER,
-		GL_DEPTH24_STENCIL8, 1280, 720);
+		GL_DEPTH24_STENCIL8, fWidth, fHeight);
 
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER,
 		GL_DEPTH_STENCIL_ATTACHMENT,
@@ -80,9 +84,6 @@ void CFrameBuffer::Render()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glDisable(GL_DEPTH_TEST);
-
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); 
-	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(m_program);
 
