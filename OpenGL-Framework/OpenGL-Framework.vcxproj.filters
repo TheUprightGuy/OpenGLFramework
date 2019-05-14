@@ -83,6 +83,12 @@
     <Filter Include="Tessellation">
       <UniqueIdentifier>{33282e56-c70c-4cd1-955b-68d4ea3660a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameBuffer">
+      <UniqueIdentifier>{fa6941f6-f431-479f-94a3-2316f89524ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\FrameBuffer Shaders">
+      <UniqueIdentifier>{fd2bb08f-2b80-41b6-9219-951d7037244a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -141,6 +147,9 @@
     </ClCompile>
     <ClCompile Include="TessModel.cpp">
       <Filter>Tessellation</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>FrameBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +216,9 @@
     <ClInclude Include="TessModel.h">
       <Filter>Tessellation</Filter>
     </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>FrameBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\FragmentShader.fs">
@@ -271,6 +283,12 @@
     </None>
     <None Include="Shaders\terrainTess.tes">
       <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\FrameBufferFragment.fs">
+      <Filter>Shaders\FrameBuffer Shaders</Filter>
+    </None>
+    <None Include="Shaders\FrameBufferVertex.vs">
+      <Filter>Shaders\FrameBuffer Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

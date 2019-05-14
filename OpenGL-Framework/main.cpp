@@ -59,12 +59,7 @@ void init()
 
 void render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0);
-
 	CSceneManager::GetInstance().Render();
-
-	glutSwapBuffers();
 }
 
 void update()

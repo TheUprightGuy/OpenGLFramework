@@ -21,6 +21,7 @@
 #include "terrain.h"
 #include "GeoModel.h"
 #include "TessModel.h"
+#include "FrameBuffer.h"
 
 struct Plane
 {
@@ -91,6 +92,7 @@ private:
 
 	CGeometryModel* m_geoModel;
 	CTessModel* m_tessModel;
+	CFrameBuffer* m_frameBuffer;
 };
 
 #endif // !__SCENEMANAGER_H__

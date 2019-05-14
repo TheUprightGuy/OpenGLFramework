@@ -140,6 +140,7 @@
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CCubeMap.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GeoModel.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="light.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="CCubeMap.h" />
     <ClInclude Include="CubeMesh.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GeoModel.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="light.h" />
@@ -183,6 +185,8 @@
     <None Include="Shaders\CubeMapFS.fs" />
     <None Include="Shaders\CubeMapVS.vs" />
     <None Include="Shaders\FragmentShader.fs" />
+    <None Include="Shaders\FrameBufferFragment.fs" />
+    <None Include="Shaders\FrameBufferVertex.vs" />
     <None Include="Shaders\GeoFragmentShader.fs" />
     <None Include="Shaders\GeoGeometryShader.gs" />
     <None Include="Shaders\GeoVertexShader.vs" />

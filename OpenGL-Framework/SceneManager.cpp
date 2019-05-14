@@ -73,11 +73,22 @@ void CSceneManager::Init()
 
 	m_tessModel = new CTessModel(tessProgram);
 	m_tessModel->SetPos(glm::vec3(0.0f, 50.0f, -5.0f));
+
+	GLuint fbProgram = GeoLoader.CreateProgram("Shaders/FrameBufferVertex.vs",
+		"Shaders/FrameBufferFragment.fs");
+
+	//m_frameBuffer = new CFrameBuffer(fbProgram);
 }
 
 void CSceneManager::Render()
 {
-
+	if (m_frameBuffer != nullptr)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer->GetFBO());
+		glEnable(GL_DEPTH_TEST);
+	}
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0);
 	
 	m_light->Render();
 	m_terrain->Render();
@@ -88,6 +99,13 @@ void CSceneManager::Render()
 	m_geoModel->Render();
 
 	m_tessModel->Render();
+
+	if (m_frameBuffer != nullptr)
+	{
+		m_frameBuffer->Render();
+	}
+
+	glutSwapBuffers();
 }
 
 void CSceneManager::Process()
