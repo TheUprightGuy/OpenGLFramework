@@ -91,6 +91,10 @@ void CFrameBuffer::Render()
 	glUniform1i(glGetUniformLocation(m_program, "renderTexture"), 0); 
 	glBindTexture(GL_TEXTURE_2D, m_renderTexture);
 
+	glUniform1f(glGetUniformLocation(m_program, "fTime"), (GLfloat)glutGet(GLUT_ELAPSED_TIME) / 1000);
+	glUniform1f(glGetUniformLocation(m_program, "fWidth"), (GLfloat)glutGet(GLUT_WINDOW_WIDTH));
+	glUniform1f(glGetUniformLocation(m_program, "fHeight"), (GLfloat)glutGet(GLUT_WINDOW_HEIGHT));
+
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

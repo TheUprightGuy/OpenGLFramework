@@ -83,6 +83,8 @@ private:
 	CInput* m_pInput;
 
 	CObject* m_menuObj;
+	CObject* m_Sphere;
+	Model* m_model;
 
 	TextLabel* m_menutext;
 

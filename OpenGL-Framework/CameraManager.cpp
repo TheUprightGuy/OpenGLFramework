@@ -152,7 +152,7 @@ void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
 
 	glm::mat4 view; /*= glm::translate(glm::mat4(), camPos);*/
 
-	std::cout << pitch << std::endl;
+
 	view *= glm::rotate(glm::mat4(), glm::radians(pitch), {1.0f, 0.0f, 0.0f});
 	view *= glm::rotate(glm::mat4(), glm::radians(yaw), { 0.0f, 1.0f, 0.0f });
 	view *= glm::rotate(glm::mat4(), glm::radians(roll), { 0.0f, 0.0f, 1.0f });

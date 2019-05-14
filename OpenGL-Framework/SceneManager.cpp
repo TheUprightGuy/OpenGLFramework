@@ -43,7 +43,15 @@ void CSceneManager::Init()
 	menuInfo.imgFilepath = "Resources/menu.png";
 	m_menuObj = new CObject(DEFAULT, MESH_2D_SPRITE, menuInfo);
 
+	initinfo sphereInfo;
+	sphereInfo.objScale = glm::vec3(1.0f, 1.0f, 1.0f);
+	sphereInfo.objPosition = glm::vec3(0.0f, 50.0f, -15.0f);
+	sphereInfo.imgFilepath = "Resources/NicCage.png";
+	m_Sphere = new CObject(DEFAULT, MESH_CUBE, sphereInfo);
 
+	//m_model = new Model("Resources/Models/INGAME_BASE.OBJ");
+
+	//m_headModel->Translate({ 0.0f, 50.0f, -10.0f });
 	//TerrainInfo newTerrain;
 	//newTerrain.HeightmapFilename = L"coastMountain513.raw";
 	//newTerrain.HeightScale = 0.35f;
@@ -92,6 +100,9 @@ void CSceneManager::Render()
 	
 	m_light->Render();
 	m_terrain->Render();
+
+	//m_model->Render();
+	m_Sphere->Render(CCameraManager::GetInstance().GetCam());
 
 	m_menutext->Render();
 	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
