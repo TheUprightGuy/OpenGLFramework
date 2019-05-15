@@ -43,11 +43,13 @@ void CSceneManager::Init()
 	menuInfo.imgFilepath = "Resources/menu.png";
 	m_menuObj = new CObject(DEFAULT, MESH_2D_SPRITE, menuInfo);
 
-	initinfo sphereInfo;
-	sphereInfo.objScale = glm::vec3(1.0f, 1.0f, 1.0f);
-	sphereInfo.objPosition = glm::vec3(0.0f, 50.0f, -15.0f);
-	sphereInfo.imgFilepath = "Resources/NicCage.png";
-	m_Sphere = new CObject(DEFAULT, MESH_CUBE, sphereInfo);
+	initinfo cubeInfo;
+	cubeInfo.objScale = glm::vec3(1.0f, 1.0f, 1.0f);
+	cubeInfo.objPosition = glm::vec3( 193.574112, -13.8693628, 196.926041 );
+	cubeInfo.imgFilepath = "Resources/NicCage.png";
+	cubeInfo.RotAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+	cubeInfo.RotationDegrees = 90.0f;
+	m_Cube = new CObject(DEFAULT, MESH_CUBE, cubeInfo);
 
 	//m_model = new Model("Resources/Models/INGAME_BASE.OBJ");
 
@@ -72,7 +74,7 @@ void CSceneManager::Init()
 	GLuint GeoProg = GeoLoader.CreateProgram("Shaders/GeoVertexShader.vs", "Shaders/GeoFragmentShader.fs", "Shaders/GeoGeometryShader.gs");
 
 	m_geoModel = new CGeometryModel(GeoProg);
-	m_geoModel->SetPosition({ 0.0f, 50.0f, -10.0f });
+	m_geoModel->SetPosition({ 200.0f, -14.0f, 195.0f});
 
 	GLuint tessProgram = GeoLoader.CreateProgram("Shaders/TessVertexShader.vs",
 		"Shaders/TessFragmentShader.fs", nullptr,
@@ -80,7 +82,7 @@ void CSceneManager::Init()
 		"Shaders/tessQuadModel.tes");
 
 	m_tessModel = new CTessModel(tessProgram);
-	m_tessModel->SetPos(glm::vec3(0.0f, 50.0f, -5.0f));
+	m_tessModel->SetPos({ 190.0f, -14.0f, 195.0f });
 
 	GLuint fbProgram = GeoLoader.CreateProgram("Shaders/FrameBufferVertex.vs",
 		"Shaders/FrameBufferFragment.fs");
@@ -102,14 +104,15 @@ void CSceneManager::Render()
 	m_terrain->Render();
 
 	//m_model->Render();
-	m_Sphere->Render(CCameraManager::GetInstance().GetCam());
+	m_Cube->Render(CCameraManager::GetInstance().GetCam());
 
-	m_menutext->Render();
-	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
-
+	
 	m_geoModel->Render();
 
 	m_tessModel->Render();
+
+	m_menutext->Render();
+	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
 
 	if (m_frameBuffer != nullptr)
 	{
@@ -172,6 +175,58 @@ void CSceneManager::Process()
 	else
 	{
 		glutSetCursor(GLUT_CURSOR_INHERIT);
+	}
+
+	if (!bDebug)
+	{
+		glm::vec3 PlayerPos = m_Cube->GetPos();
+		float rads = glm::radians(m_Cube->GetRot());
+
+		//Moves the player according to its current rotation
+		/*****************************************************************/
+		if (CInput::GetInstance().GetKeyState('w') == INPUT_HOLD)
+		{
+			glm::vec3 forwardVec = glm::vec3(glm::cos(-rads), 0.0, glm::sin(-rads)); //I'm gonna be honest, I don't understand why this works, but it does, so I'm happy with it
+			PlayerPos = PlayerPos + forwardVec;
+		}
+
+		if (CInput::GetInstance().GetKeyState('s') == INPUT_HOLD)
+		{
+			glm::vec3 backVec = glm::vec3(glm::cos(-rads), 0.0, glm::sin(-rads));
+			PlayerPos = PlayerPos - backVec;
+		}
+
+		if (CInput::GetInstance().GetKeyState('a') == INPUT_HOLD)
+		{
+			glm::vec3 leftVec = glm::vec3(glm::cos(-glm::radians(m_Cube->GetRot() - 90)), 0.0, glm::sin(-glm::radians(m_Cube->GetRot() - 90)));
+			PlayerPos = PlayerPos - leftVec;
+		}
+
+		if (CInput::GetInstance().GetKeyState('d') == INPUT_HOLD)
+		{
+			glm::vec3 rightVec = glm::vec3(glm::cos(-glm::radians(m_Cube->GetRot() + 90)), 0.0, glm::sin(-glm::radians(m_Cube->GetRot() + 90)));
+			PlayerPos = PlayerPos - rightVec;
+		}
+		PlayerPos.y = m_terrain->GetHeight(PlayerPos.x, PlayerPos.z) + (m_Cube->GetScale().y);
+		m_Cube->Translate(PlayerPos);
+
+		//Deadzone size is 2
+		if (CInput::GetInstance().GetMousePos().x < glutGet(GLUT_WINDOW_WIDTH) / 2 + 2)
+		{
+			m_Cube->Rotation(m_Cube->GetRot() + 7, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+		if (CInput::GetInstance().GetMousePos().x > glutGet(GLUT_WINDOW_WIDTH) / 2 - 2)
+		{
+			m_Cube->Rotation(m_Cube->GetRot() - 7, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+
+		glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
+		glutSetCursor(GLUT_CURSOR_NONE);
+
+		glm::vec3 camVec = glm::vec3(glm::cos(-glm::radians(m_Cube->GetRot())), -0.7, glm::sin(-glm::radians(m_Cube->GetRot())));
+		CCameraManager::GetInstance().GetCam()->CamTarget(m_Cube->GetPos());
+		CCameraManager::GetInstance().GetCam()->SetCamPos(m_Cube->GetPos() + (-camVec * 8.0f));
+		CCameraManager::GetInstance().GetCam()->UpdateView();
 	}
 
 }

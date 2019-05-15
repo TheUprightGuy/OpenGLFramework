@@ -78,7 +78,7 @@ void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
 	leftVec.y = 0.0f;
 	leftVec.x = movementDir.z;
 	leftVec.z = -movementDir.x;
-
+	leftVec *= distance;
 	//testing
 	if ((CInput::GetInstance().GetKeyState('w') == INPUT_HOLD) || CInput::GetInstance().GetKeyState('W') == INPUT_HOLD)
 	{
