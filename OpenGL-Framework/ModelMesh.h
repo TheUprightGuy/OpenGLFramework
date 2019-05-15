@@ -7,8 +7,10 @@
 using namespace std;
 // GL Includes
 
-#include "Utils.h"
+// EDIT
+#include "utils.h"
 #include "Camera.h"
+// EDIT END
 
 struct Vertex {
 	
@@ -42,12 +44,10 @@ public:
 	}
 
 	// Render the mesh
-	void Render(CCamera* camera, GLuint program, glm::mat4 _model)
+	void Render(CCamera* camera, GLuint program)
 	{
-
 		glUseProgram(program);
 
-		
 		// Bind appropriate textures
 		GLuint diffuseNr = 1;
 		GLuint specularNr = 1;
@@ -69,10 +69,13 @@ public:
 			glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
 		}
 		
-		glm::mat4 model = _model;
-		glm::mat4 mvp = camera->GetProj() *  camera->GetView() * model;
+		// EDIT
+		glm::mat4 model;
+		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.2f, 0.2f, 0.2f));
+		glm::mat4 mvp =  camera->GetProj() * camera->GetView() * scale;
 		GLint mvpLoc = glGetUniformLocation(program, "MVP");
 		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+		// EDIT END
 
 		// Draw mesh
 		glBindVertexArray(this->VAO);

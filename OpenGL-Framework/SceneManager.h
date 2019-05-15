@@ -19,6 +19,9 @@
 #include "ShaderLoader.h"
 #include "AudioManager.h"
 #include "terrain.h"
+#include "GeoModel.h"
+#include "TessModel.h"
+#include "FrameBuffer.h"
 
 struct Plane
 {
@@ -80,12 +83,18 @@ private:
 	CInput* m_pInput;
 
 	CObject* m_menuObj;
+	CObject* m_Cube;
+	Model* m_model;
 
 	TextLabel* m_menutext;
 
 	Terrain* m_terrain;
 
 	CLight* m_light;
+
+	CGeometryModel* m_geoModel;
+	CTessModel* m_tessModel;
+	CFrameBuffer* m_frameBuffer;
 };
 
 #endif // !__SCENEMANAGER_H__

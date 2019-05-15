@@ -23,15 +23,12 @@ public:
 		m_View =
 			glm::lookAt(
 				m_CamPos,
-				m_TargetPos,
+				m_TargetPos ,
 				m_UpVec);
 	}
 
-	void AddYaw(float fDegrees);
-	void AddPitch(float fDegrees);
-
 	void CamTarget(glm::vec3 _newPos) { m_TargetPos = _newPos; }
-
+	void CamUpVec(glm::vec3 _upVec) { m_UpVec = _upVec; }
 private:
 	glm::vec3 m_CamPos;
 	glm::vec3 m_TargetPos;

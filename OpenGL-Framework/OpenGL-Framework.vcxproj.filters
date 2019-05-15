@@ -17,9 +17,6 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{ca07b50c-a404-4be3-a703-e0002807d48d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders\ShaderFiles">
-      <UniqueIdentifier>{88d59a5d-fcc0-4990-855b-54aa22aab6f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{f68da2fc-9023-404c-b016-3ebb5a61a0f1}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,42 @@
     </Filter>
     <Filter Include="Terrain">
       <UniqueIdentifier>{a69f4480-374f-4382-b841-6b2dea946d7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\TesselationShaders">
+      <UniqueIdentifier>{3d4d2dec-bde2-4336-aeea-85d3a7555901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Geo Shaders">
+      <UniqueIdentifier>{61df1a21-8d29-457c-9782-6e749565c129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VS &amp; FS ShaderFiles">
+      <UniqueIdentifier>{88d59a5d-fcc0-4990-855b-54aa22aab6f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VS &amp; FS ShaderFiles\CubeMapShader">
+      <UniqueIdentifier>{9b24ce4f-f995-4873-9b32-32541169dadf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VS &amp; FS ShaderFiles\ModelShader">
+      <UniqueIdentifier>{5ab6559c-ef1e-4c7f-8ceb-c84c0f726c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VS &amp; FS ShaderFiles\PhongLighting">
+      <UniqueIdentifier>{6155a77b-3560-42e9-9c70-35f015f78786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VS &amp; FS ShaderFiles\RefectShader">
+      <UniqueIdentifier>{74fa232f-1b66-44cf-96a6-18f3579f5923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VS &amp; FS ShaderFiles\TextShader">
+      <UniqueIdentifier>{0e199dcd-5fa5-4f23-bb84-4c2b7a85583c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GeometryModel">
+      <UniqueIdentifier>{60cb9258-dedb-42a0-be61-bea130d16fdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tessellation">
+      <UniqueIdentifier>{33282e56-c70c-4cd1-955b-68d4ea3660a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameBuffer">
+      <UniqueIdentifier>{fa6941f6-f431-479f-94a3-2316f89524ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\FrameBuffer Shaders">
+      <UniqueIdentifier>{fd2bb08f-2b80-41b6-9219-951d7037244a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +142,15 @@
     <ClCompile Include="terrain.cpp">
       <Filter>Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="GeoModel.cpp">
+      <Filter>GeometryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="TessModel.cpp">
+      <Filter>Tessellation</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>FrameBuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshManager.h">
@@ -144,9 +186,6 @@
     <ClInclude Include="ProgramManager.h">
       <Filter>Shaders\ProgManager</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Camera\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Camera\CamManager</Filter>
     </ClInclude>
@@ -156,55 +195,100 @@
     <ClInclude Include="Sphere.h">
       <Filter>Mesh\Meshs</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>ModelLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMesh.h">
-      <Filter>ModelLoader</Filter>
-    </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="terrain.h">
       <Filter>Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Camera\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GeoModel.h">
+      <Filter>GeometryModel</Filter>
+    </ClInclude>
+    <ClInclude Include="TessModel.h">
+      <Filter>Tessellation</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>FrameBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>ModelLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>ModelLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\FragmentShader.fs">
-      <Filter>Shaders\ShaderFiles</Filter>
-    </None>
-    <None Include="Shaders\Text.fs">
-      <Filter>Shaders\ShaderFiles</Filter>
-    </None>
-    <None Include="Shaders\Text.vs">
-      <Filter>Shaders\ShaderFiles</Filter>
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
     </None>
     <None Include="Shaders\VertexShader.vs">
-      <Filter>Shaders\ShaderFiles</Filter>
-    </None>
-    <None Include="Shaders\PhongLightingFS.fs">
-      <Filter>Shaders\ShaderFiles</Filter>
-    </None>
-    <None Include="Shaders\PhongLightingVS.vs">
-      <Filter>Shaders\ShaderFiles</Filter>
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
     </None>
     <None Include="Shaders\CubeMapFS.fs">
-      <Filter>Shaders\ShaderFiles</Filter>
+      <Filter>Shaders\VS &amp; FS ShaderFiles\CubeMapShader</Filter>
     </None>
     <None Include="Shaders\CubeMapVS.vs">
-      <Filter>Shaders\ShaderFiles</Filter>
-    </None>
-    <None Include="Shaders\ReflectFS.fs">
-      <Filter>Shaders\ShaderFiles</Filter>
-    </None>
-    <None Include="Shaders\ReflectVS.vs">
-      <Filter>Shaders\ShaderFiles</Filter>
-    </None>
-    <None Include="Shaders\Model.fs">
-      <Filter>Shaders\ShaderFiles</Filter>
+      <Filter>Shaders\VS &amp; FS ShaderFiles\CubeMapShader</Filter>
     </None>
     <None Include="Shaders\Model.vs">
-      <Filter>Shaders\ShaderFiles</Filter>
+      <Filter>Shaders\VS &amp; FS ShaderFiles\ModelShader</Filter>
+    </None>
+    <None Include="Shaders\Model.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles\ModelShader</Filter>
+    </None>
+    <None Include="Shaders\PhongLightingFS.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles\PhongLighting</Filter>
+    </None>
+    <None Include="Shaders\PhongLightingVS.vs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles\PhongLighting</Filter>
+    </None>
+    <None Include="Shaders\ReflectVS.vs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles\RefectShader</Filter>
+    </None>
+    <None Include="Shaders\ReflectFS.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles\RefectShader</Filter>
+    </None>
+    <None Include="Shaders\Text.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles\TextShader</Filter>
+    </None>
+    <None Include="Shaders\Text.vs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles\TextShader</Filter>
+    </None>
+    <None Include="Shaders\GeoFragmentShader.fs">
+      <Filter>Shaders\Geo Shaders</Filter>
+    </None>
+    <None Include="Shaders\GeoGeometryShader.gs">
+      <Filter>Shaders\Geo Shaders</Filter>
+    </None>
+    <None Include="Shaders\GeoVertexShader.vs">
+      <Filter>Shaders\Geo Shaders</Filter>
+    </None>
+    <None Include="Shaders\tessQuadModel.tcs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\tessQuadModel.tes">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\TessFragmentShader.fs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\TessVertexShader.vs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\terrainTess.tcs">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\terrainTess.tes">
+      <Filter>Shaders\TesselationShaders</Filter>
+    </None>
+    <None Include="Shaders\FrameBufferFragment.fs">
+      <Filter>Shaders\FrameBuffer Shaders</Filter>
+    </None>
+    <None Include="Shaders\FrameBufferVertex.vs">
+      <Filter>Shaders\FrameBuffer Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

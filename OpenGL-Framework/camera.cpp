@@ -3,13 +3,27 @@
 
 CCamera::CCamera(bool bIsOrtho)
 {
-	m_CamPos = glm::vec3(0.0f, 0.0f, 5.0f);
+	m_CamPos = glm::vec3(0.0f, 50.0f, 0.0f);
 	m_TargetPos = glm::vec3(0.0f, 0.0f, 0.0f);
-	m_View = glm::lookAt(
-		glm::vec3(0.0f, 0.0f, 1.8f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f));
-	m_UpVec =  glm::vec3(0.0f, 1.0f, 0.0f);
+	m_UpVec = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	//m_View = glm::lookAt(
+	//	m_CamPos,
+	//	m_TargetPos - m_CamPos,
+	//	m_UpVec);
+	//Weird shit going on
+
+	glm::vec3 camPos = GetCamPos();
+	camPos *= -1;
+
+	glm::mat4 view; /*= glm::translate(glm::mat4(), camPos);*/
+
+	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 1.0f, 0.0f, 0.0f });
+	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 1.0f, 0.0f });
+	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 0.0f, 1.0f });
+	view *= glm::translate(glm::mat4(), camPos);
+
+	m_View = view; //I'll do it myself then >:(
 
 	GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);
 	GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
@@ -30,13 +44,4 @@ CCamera::~CCamera()
 }
 
 
-void CCamera::AddYaw(float fDegrees)
-{
-	m_TargetPos = m_CamPos +  glm::vec3(std::cos(glm::radians(fDegrees)), std::sin(glm::radians(fDegrees)), 1.0f);
-}
 
-void CCamera::AddPitch(float fDegrees)
-{
-	m_TargetPos = ( m_CamPos) + glm::vec3(0.0f, std::cos(glm::radians(fDegrees)), std::sin(glm::radians(fDegrees)));
-	m_UpVec = glm::cross(m_TargetPos, glm::vec3(0.0f, 1.0f, 0.0f));
-}

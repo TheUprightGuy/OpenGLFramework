@@ -56,10 +56,17 @@ Terrain::~Terrain()
 void Terrain::Initialize()
 {
 	// Create program
-	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
+	ShaderLoader shaderLoader;
 
+	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
+	/*m_program = shaderLoader.CreateProgram("Shaders/PhongLightingVS.vs", "Shaders/PhongLightingFS.fs", nullptr,
+		"Shaders/tessQuadModel.tcs",
+		"Shaders/tessQuadModel.tes");
+		*/
 	LoadHeightMap();
 	Smooth();
+
+	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
 
 	BuildVertexBuffer();
 	BuildIndexBuffer();
@@ -77,12 +84,12 @@ void Terrain::Initialize()
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
 	int width, height;
-	unsigned char* image = SOIL_load_image("Resources/Textures/stone.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+	unsigned char* image = SOIL_load_image("Resources/Textures/grass.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -337,15 +344,19 @@ void Terrain::Render()
 	// Set Culling and Use program	
 	glUseProgram(m_program);
 
+	glCullFace(GL_BACK); // Cull the Back faces
+	glFrontFace(GL_CCW); // Front face is Clockwise order
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	m_light->Render();
-
 	
 	glUniformMatrix4fv(glGetUniformLocation(m_program, "model"), 1, GL_FALSE, value_ptr(glm::mat4()));
 
 	// Pass mvp to shader
-	glm::mat4 MVP = CCameraManager::GetInstance().GetCam()->GetProj() * CCameraManager::GetInstance().GetCam()->GetView() * glm::mat4();
+	glm::mat4 MVP = CCameraManager::GetInstance().GetCam()->GetProj() * CCameraManager::GetInstance().GetCam()->GetView();
 
 	GLint MVPloc = glGetUniformLocation(m_program, "MVP");
 	glUniformMatrix4fv(MVPloc, 1, GL_FALSE, value_ptr(MVP));
@@ -369,4 +380,7 @@ void Terrain::Render()
 	glDrawElements(GL_TRIANGLES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
 }
