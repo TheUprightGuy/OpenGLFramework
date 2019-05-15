@@ -141,6 +141,8 @@
     <ClCompile Include="CCloth.cpp" />
     <ClCompile Include="CCubeMap.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="GeoModel.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,6 +155,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="TessModel.cpp" />
     <ClCompile Include="TextLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +165,8 @@
     <ClInclude Include="CCubeMap.h" />
     <ClInclude Include="CubeMesh.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="GeoModel.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="Model.h" />
@@ -172,6 +177,7 @@
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="terrain.h" />
+    <ClInclude Include="TessModel.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="ShaderLoader.h" />
@@ -181,12 +187,23 @@
     <None Include="Shaders\CubeMapFS.fs" />
     <None Include="Shaders\CubeMapVS.vs" />
     <None Include="Shaders\FragmentShader.fs" />
+    <None Include="Shaders\FrameBufferFragment.fs" />
+    <None Include="Shaders\FrameBufferVertex.vs" />
+    <None Include="Shaders\GeoFragmentShader.fs" />
+    <None Include="Shaders\GeoGeometryShader.gs" />
+    <None Include="Shaders\GeoVertexShader.vs" />
     <None Include="Shaders\Model.fs" />
     <None Include="Shaders\Model.vs" />
     <None Include="Shaders\PhongLightingFS.fs" />
     <None Include="Shaders\PhongLightingVS.vs" />
     <None Include="Shaders\ReflectFS.fs" />
     <None Include="Shaders\ReflectVS.vs" />
+    <None Include="Shaders\terrainTess.tcs" />
+    <None Include="Shaders\terrainTess.tes" />
+    <None Include="Shaders\TessFragmentShader.fs" />
+    <None Include="Shaders\tessQuadModel.tcs" />
+    <None Include="Shaders\tessQuadModel.tes" />
+    <None Include="Shaders\TessVertexShader.vs" />
     <None Include="Shaders\Text.fs" />
     <None Include="Shaders\Text.vs" />
     <None Include="Shaders\VertexShader.vs" />

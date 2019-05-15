@@ -9,25 +9,24 @@
 using namespace std;
 // GL Includes
 
-#include "../Dependencies\glew\glew.h"
-#include "../Dependencies\freeglut\freeglut.h"
-#include "../Dependencies\soil\SOIL.h"
+#include <glew.h>
+#include <freeglut.h>
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 
-#include "glm\gtc\quaternion.hpp"
-#include "glm\gtx\quaternion.hpp"
+#include <gtc/quaternion.hpp>
+#include <gtx/quaternion.hpp>
 
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #include "ModelMesh.h"
 #include "Camera.h"
+#include "ProgramManager.h"
 #include "CameraManager.h"
-
 class Model
 {
 public:
@@ -37,64 +36,25 @@ public:
 	
 	/*  Functions   */
 	// Constructor, expects a filepath to a 3D model.
-	Model(std::string path, GLuint program)
-	{
+	Model(std::string path){
 
-		this->program = program;
-		this->camera = CCameraManager::GetInstance().GetCam();;
+		// EDIT
+		this->program = CProgrammerManager::GetInstance().GetProgram(DEFAULT);
+		// EDIT END
+		camera = CCameraManager::GetInstance().GetCam();
+		this->camera = camera;
 		this->loadModel(path);
-
-		m_objPosition = glm::vec3(0.0f, 0.0f, 0.0f);
-		m_objScale = glm::vec3(1.0f, 1.0f, 1.0f);
-		m_RotAxis = glm::vec3(0.0f, 0.0f, 1.0f);
-		m_RotationDegrees = 0.0f;
 	}
 
 	// Draws the model, and thus all its meshes
 	void Render()
 	{
-		/************************************///Translate matrix
-		glm::mat4 translate = glm::translate(glm::mat4(), m_objPosition);
-
-		/************************************///Rotation Matrix
-		glm::vec3 rotAxis = glm::vec3(0.0f, 0.0f, 1.0f);
-		glm::mat4 rotation = glm::rotate(glm::mat4(), glm::radians(m_RotationDegrees), m_RotAxis);
-
-		/************************************///Scale matrix
-		glm::mat4 scale = glm::scale(glm::mat4(), m_objScale);
-
-		glm::mat4 model = translate * rotation * scale;
-
-		glCullFace(GL_BACK); // Cull the Back faces
-		glFrontFace(GL_CCW); // Front face is Clockwise order
-
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
-		glEnable(GL_BLEND);
-
 		for (GLuint i = 0; i < this->meshes.size(); i++) {
 
 		//printf("mesh size: %d \n", meshes.size());
 
-			this->meshes[i].Render(camera, program, model);
+			this->meshes[i].Render(camera, program);
 		}
-	}
-
-
-	void Translate(glm::vec3 _newPos)
-	{
-		m_objPosition = _newPos;
-	}
-
-	void Scale(glm::vec3 _scale)
-	{
-		m_objScale = _scale;
-	}
-
-	void Rotation(float _fDeg, glm::vec3 _rotAxis)
-	{
-		m_RotationDegrees = _fDeg;
-		m_RotAxis = _rotAxis;
 	}
 
 private:
@@ -103,18 +63,8 @@ private:
 	string directory;
 	vector<MeshTexture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 
-	//Translate
-	glm::vec3 m_objPosition;
-	//COORD m_objPixelPos;
-
-	//Scale
-	glm::vec3 m_objScale;
-
-	//Rotation
-	float m_RotationDegrees;
-	glm::vec3 m_RotAxis;
-										/*  Functions   */
-										// Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
+	/*  Functions   */
+	// Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
 	void loadModel(string path)
 	{
 		// Read file via ASSIMP

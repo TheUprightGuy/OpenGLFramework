@@ -16,7 +16,10 @@ class ShaderLoader
 	public:
 		ShaderLoader(void);
 		~ShaderLoader(void);
-		GLuint CreateProgram(char* VertexShaderFilename,
-			char* FragmentShaderFilename);
+
+		//If you are not using a geo shader or teselation shaders use nullptr
+		GLuint CreateProgram(char* VertexShaderFilename,char* FragmentShaderFilename, 
+			char * geoShaderFile = nullptr,
+			char* TessControlShaderFile = nullptr, char* TessEvalShaderFile = nullptr);
 
 };
