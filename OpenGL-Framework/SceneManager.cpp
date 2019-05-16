@@ -158,6 +158,8 @@ void CSceneManager::Process()
 	
 	static bool debugKeyIsPressed;
 	static bool bDebug = false;
+	static float yaw = 0.0f;
+	static float pitch = 0.0f;
 	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F3) == INPUT_HOLD)
 		&& !debugKeyIsPressed)
 	{
@@ -213,11 +215,13 @@ void CSceneManager::Process()
 		//Deadzone size is 2
 		if (CInput::GetInstance().GetMousePos().x < glutGet(GLUT_WINDOW_WIDTH) / 2 + 2)
 		{
+			yaw += 7.0f;
 			m_Cube->Rotation(m_Cube->GetRot() + 7, glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 		if (CInput::GetInstance().GetMousePos().x > glutGet(GLUT_WINDOW_WIDTH) / 2 - 2)
 		{
 			m_Cube->Rotation(m_Cube->GetRot() - 7, glm::vec3(0.0f, 1.0f, 0.0f));
+			yaw -= 7.0f;
 		}
 
 		glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);

@@ -56,7 +56,7 @@ CCamera * CCameraManager::GetOrthoCam()
 	return(orthoCam);
 }
 
-void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
+void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed, glm::vec2 _startYawPitch)
 {
 	glutSetCursor(GLUT_CURSOR_NONE);
 
@@ -65,7 +65,7 @@ void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
 	static float yaw = 0.0f;
 	static float pitch = 0.0f;
 	static float roll = 0.0f;
-
+	
 	float dx = std::sin(glm::radians(yaw))/** distance*/;
 	float dz = std::cos(glm::radians(yaw))/** distance*/;
 
@@ -121,12 +121,12 @@ void CCameraManager::DebugCamera(float _deltaTime, float _movementSpeed)
 	bool center = false;
 	if (mousePos.x > fWidth / 2 + 2)
 	{
-		yaw += 4;
+		yaw += 7;
 		center = true;
 	}
 	else if (mousePos.x < fWidth / 2 - 2)
 	{
-		yaw -= 4;
+		yaw -= 7;
 		center = true;
 	}
 
