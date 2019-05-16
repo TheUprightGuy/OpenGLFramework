@@ -79,8 +79,8 @@ void CSceneManager::Init()
 
 	GLuint fbProgram = GeoLoader.CreateProgram("Shaders/FrameBufferVertex.vs",
 		"Shaders/FrameBufferFragment.fs");
-
-	m_frameBuffer = new CFrameBuffer(fbProgram);
+	 
+	//m_frameBuffer = new CFrameBuffer(fbProgram);
 }
 
 void CSceneManager::Render()

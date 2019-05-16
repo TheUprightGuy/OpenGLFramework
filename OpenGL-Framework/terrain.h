@@ -34,7 +34,10 @@ private:
 	GLuint m_vbo;
 	GLuint m_vao;
 	GLuint m_program;
-	GLuint m_texture;
+
+	GLuint m_textureGrass;
+	GLuint m_textureEarth;
+	GLuint m_textureSnow;
 
 	CLight* m_light;
 

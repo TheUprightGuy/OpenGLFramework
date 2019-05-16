@@ -278,17 +278,23 @@
     <None Include="Shaders\TessVertexShader.vs">
       <Filter>Shaders\TesselationShaders</Filter>
     </None>
-    <None Include="Shaders\terrainTess.tcs">
-      <Filter>Shaders\TesselationShaders</Filter>
-    </None>
-    <None Include="Shaders\terrainTess.tes">
-      <Filter>Shaders\TesselationShaders</Filter>
-    </None>
     <None Include="Shaders\FrameBufferFragment.fs">
       <Filter>Shaders\FrameBuffer Shaders</Filter>
     </None>
     <None Include="Shaders\FrameBufferVertex.vs">
       <Filter>Shaders\FrameBuffer Shaders</Filter>
+    </None>
+    <None Include="Shaders\TerrainPhongLightingVS.vs">
+      <Filter>Terrain</Filter>
+    </None>
+    <None Include="Shaders\terrainTess.tcs">
+      <Filter>Terrain</Filter>
+    </None>
+    <None Include="Shaders\terrainTess.tes">
+      <Filter>Terrain</Filter>
+    </None>
+    <None Include="Shaders\TerrainPhongLightingFS.fs">
+      <Filter>Terrain</Filter>
     </None>
   </ItemGroup>
 </Project>
