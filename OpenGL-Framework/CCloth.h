@@ -1,11 +1,7 @@
 #pragma once
 #include "utils.h"
-
-struct PARTICLE
-{
-	glm::vec3 position;
-	glm::vec3 velocity;
-} typedef ClothParticle;
+#include "ClothParticle.h"
+#include "Clothlink.h"
 
 class CCloth
 {
@@ -15,11 +11,12 @@ public:
 
 	//Start Pos @ the top left of the cloth
 	void init(glm::vec3 _startPos);
+
 private:
-	std::vector<ClothParticle*> m_points;
-	
 	int m_width;
 	int m_length;
+	float gravity;
 
+	std::vector<CClothParticle*> m_particles;
 };
 

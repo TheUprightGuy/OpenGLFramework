@@ -234,6 +234,12 @@
     <ClInclude Include="CCloth.h">
       <Filter>Cloth</Filter>
     </ClInclude>
+    <ClInclude Include="Clothlink.h">
+      <Filter>Cloth</Filter>
+    </ClInclude>
+    <ClInclude Include="ClothParticle.h">
+      <Filter>Cloth</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\FragmentShader.fs">

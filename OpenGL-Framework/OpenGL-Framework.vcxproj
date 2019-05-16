@@ -163,6 +163,8 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CCloth.h" />
     <ClInclude Include="CCubeMap.h" />
+    <ClInclude Include="Clothlink.h" />
+    <ClInclude Include="ClothParticle.h" />
     <ClInclude Include="CubeMesh.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="FrameBuffer.h" />
