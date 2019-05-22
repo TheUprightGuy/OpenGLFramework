@@ -55,6 +55,5 @@ private:
 	float m_fHeightOffset;
 	float m_fWidth;
 	float m_fDepth;
-
 };
 

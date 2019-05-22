@@ -64,8 +64,6 @@ void Terrain::Initialize()
 	LoadHeightMap();
 	Smooth();
 
-	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
-
 	BuildVertexBuffer();
 	BuildIndexBuffer();
 
