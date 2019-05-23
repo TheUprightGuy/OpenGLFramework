@@ -41,8 +41,21 @@ public:
 		m_vAcc = glm::vec3();
 	}
 
-	void solveConstraints();
-
+	void solveConstraints() {
+		/* Link Constraints */
+		// Links make sure PointMasss connected to this one is at a set distance away
+		for (int i = 0; i < m_links.size(); i++)
+		{
+			CClothLink* currentLink = m_links[i];
+			currentLink->solve();
+		}
+		/* Other Constraints */
+		// make sure the PointMass stays in its place if it's pinned
+		if (pinned)
+		{
+			m_vPos = m_vPinnedPos;
+		}
+	}
 	~CClothParticle();
 
 	glm::vec3 m_vPos;

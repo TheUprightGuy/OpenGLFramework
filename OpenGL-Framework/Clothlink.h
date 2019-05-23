@@ -43,6 +43,8 @@ public:
 		m_p2->m_vPos.z -= diff.z * scalarP2 * difference;
 	}
 
+	void Render();
+
 	~CClothLink();
 
 private:
