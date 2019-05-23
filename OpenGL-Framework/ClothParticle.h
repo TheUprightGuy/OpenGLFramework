@@ -15,6 +15,7 @@ public:
 	void applyForce(glm::vec3 _forceVec) {
 		m_vAcc += (m_vPos / m_fMass);
 	}
+
 	void pinTo(glm::vec3 _pinnedPos) {
 		pinned = true;
 		m_vPinnedPos = _pinnedPos;
@@ -40,14 +41,17 @@ public:
 		m_vAcc = glm::vec3();
 	}
 
+	void solveConstraints();
+
 	~CClothParticle();
 
-private:
+	glm::vec3 m_vPos;
 	float m_fMass = 1;
 	float m_fDamping = 20;
 	float m_fGravity = 980.0f;
 
-	glm::vec3 m_vPos;
+private:
+
 	glm::vec3 m_vLastPos;
 	glm::vec3 m_vAcc;
 
