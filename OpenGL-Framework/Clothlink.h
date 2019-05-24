@@ -1,6 +1,7 @@
 #pragma once
 #include "utils.h"
 #include "ClothParticle.h"
+
 class CClothLink
 {
 public:

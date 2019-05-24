@@ -12,16 +12,20 @@ public:
 		m_vAcc = glm::vec3();
 	}
 
-	void applyForce(glm::vec3 _forceVec) {
+	void applyForce(glm::vec3 _forceVec) 
+	{
 		m_vAcc += (m_vPos / m_fMass);
 	}
 
-	void pinTo(glm::vec3 _pinnedPos) {
+	void pinTo(glm::vec3 _pinnedPos) 
+	{
 		pinned = true;
 		m_vPinnedPos = _pinnedPos;
 	}
 
-	void updatePhysics(float timeStep) { // timeStep should be in elapsed seconds (deltaTime)
+	void updatePhysics(float timeStep) 
+	{ 
+		// timeStep should be in elapsed seconds (deltaTime)
 		applyForce({0.0f, m_fMass * m_fGravity, 0.0f});
 
 		glm::vec3 velocity = m_vPos - m_vLastPos;
@@ -41,7 +45,8 @@ public:
 		m_vAcc = glm::vec3();
 	}
 
-	void solveConstraints() {
+	void solveConstraints()
+	{
 		/* Link Constraints */
 		// Links make sure PointMasss connected to this one is at a set distance away
 		for (int i = 0; i < m_links.size(); i++)
@@ -56,6 +61,7 @@ public:
 			m_vPos = m_vPinnedPos;
 		}
 	}
+
 	~CClothParticle();
 
 	glm::vec3 m_vPos;
