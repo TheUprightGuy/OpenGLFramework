@@ -1,6 +1,5 @@
 #pragma once
 #include "utils.h"
-#include "Clothlink.h"
 
 class CClothParticle
 {
@@ -45,22 +44,22 @@ public:
 		m_vAcc = glm::vec3();
 	}
 
-	void solveConstraints()
-	{
-		/* Link Constraints */
-		// Links make sure PointMasss connected to this one is at a set distance away
-		for (int i = 0; i < m_links.size(); i++)
-		{
-			CClothLink* currentLink = m_links[i];
-			currentLink->solve();
-		}
-		/* Other Constraints */
-		// make sure the PointMass stays in its place if it's pinned
-		if (pinned)
-		{
-			m_vPos = m_vPinnedPos;
-		}
-	}
+	//void solveConstraints()
+	//{
+	//	/* Link Constraints */
+	//	// Links make sure PointMasss connected to this one is at a set distance away
+	//	for (int i = 0; i < m_links.size(); i++)
+	//	{
+	//		CClothLink* currentLink = m_links[i];
+	//		currentLink->solve();
+	//	}
+	//	/* Other Constraints */
+	//	// make sure the PointMass stays in its place if it's pinned
+	//	if (pinned)
+	//	{
+	//		m_vPos = m_vPinnedPos;
+	//	}
+	//}
 
 	~CClothParticle();
 
@@ -73,8 +72,6 @@ private:
 
 	glm::vec3 m_vLastPos;
 	glm::vec3 m_vAcc;
-
-	std::vector<CClothLink*> m_links;
 
 	bool pinned = false;
 	glm::vec3 m_vPinnedPos;

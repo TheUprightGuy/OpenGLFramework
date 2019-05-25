@@ -33,7 +33,6 @@ void CSceneManager::Init()
 	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
 
 	oldDeltaTime = 1.0f;
-	m_Controls = THIRDPERSON;
 
 	/*Menus and buttons*/
 	m_menutext = new TextLabel("Press Q for control list", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
@@ -47,10 +46,7 @@ void CSceneManager::Init()
 	menuInfo.imgFilepath = "Resources/menu.png";
 	m_menuObj = new CObject(DEFAULT, MESH_2D_SPRITE, menuInfo);
 
-
-
 	/*Camera Setup*/
-
 }
 
 void CSceneManager::Render()
@@ -120,7 +116,6 @@ void CSceneManager::Process()
 	case FIRSTPERSON:
 		break;
 	case THIRDPERSON:
-		PlayerControls();
 		break;
 	case FREECAM:
 		CCameraManager::GetInstance().DebugCamera(deltaTime, 100.0f);
