@@ -42,7 +42,13 @@ enum PointPlace
 	BACK_OF_PLANE
 };
 
-
+enum ControlScheme
+{
+	FIRSTPERSON,
+	THIRDPERSON,
+	FREECAM,
+	MOUSEFREE
+};
 class CSceneManager
 {
 public:
@@ -57,6 +63,7 @@ public:
 	void Render();
 	void Process();
 
+	void PlayerControls();
 	PointPlace EvalPoint(Plane PlaneToEval, glm::vec3 PointPos);
 	bool EvalLine(Plane PlaneToEval, Line LineToEval, glm::vec3& CollisionPoint);
 	bool CheckMouseCollision(CObject* _object);
@@ -78,6 +85,7 @@ private:
 	//Variables
 	GLuint m_program;
 
+	ControlScheme m_Controls;
 	float oldDeltaTime;
 	//Global input
 	CInput* m_pInput;

@@ -24,7 +24,7 @@ public:
 
 	CCamera* GetOrthoCam();
 
-	void DebugCamera(float _deltaTime, float _movementSpeed);
+	void DebugCamera(float _deltaTime, float _movementSpeed, glm::vec2 _startYawPitch = {0.0f, 0.0f});
 
 	static CCameraManager& GetInstance();
 	static void DestroyInstance();

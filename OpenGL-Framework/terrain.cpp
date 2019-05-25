@@ -58,15 +58,11 @@ void Terrain::Initialize()
 	// Create program
 	ShaderLoader shaderLoader;
 
-	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
-	/*m_program = shaderLoader.CreateProgram("Shaders/PhongLightingVS.vs", "Shaders/PhongLightingFS.fs", nullptr,
-		"Shaders/tessQuadModel.tcs",
-		"Shaders/tessQuadModel.tes");
-		*/
+	// m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
+	m_program = shaderLoader.CreateProgram("Shaders/TerrainPhongLightingVS.vs", "Shaders/TerrainPhongLightingFS.fs");
+		
 	LoadHeightMap();
 	Smooth();
-
-	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
 
 	BuildVertexBuffer();
 	BuildIndexBuffer();
@@ -80,22 +76,58 @@ void Terrain::Initialize()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (void*)(offsetof(TerrainVertex, v2Tex)));
 	glEnableVertexAttribArray(2);
 
-	glGenTextures(1, &m_texture);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
+	//Texture Loading
+	/**************************************/
+	glGenTextures(1, &m_textureGrass);
+	glBindTexture(GL_TEXTURE_2D, m_textureGrass);
 
 	int width, height;
 	unsigned char* image = SOIL_load_image("Resources/Textures/grass.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glGenTextures(1, &m_textureEarth);
+	glBindTexture(GL_TEXTURE_2D, m_textureEarth);
+
+	image = SOIL_load_image("Resources/Textures/earth.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glGenTextures(1, &m_textureSnow);
+	glBindTexture(GL_TEXTURE_2D, m_textureSnow);
+
+	image = SOIL_load_image("Resources/Textures/snow.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	/**************************************/
 
 	m_light = new CLight(m_program);
 	m_light->Position({ 50.0f, 500.0f, 0.0f });
@@ -108,10 +140,12 @@ void Terrain::BuildVertexBuffer()
 	float halfWidth = (m_iNumCols - 1) * (0.5f * 1);
 	float halfDepth = (m_iNumRows - 1) * (0.5f * 1);
 
-	//float du = 1.0f / (m_iNumCols - 1);
-	//float dv = 1.0f / (m_iNumRows - 1);
-	float du = 0.125f;
-	float dv = 0.125f;
+	float du = 1.0f / (m_iNumCols - 1);
+	float dv = 1.0f / (m_iNumRows - 1);
+	//float du = 0.125f;
+	//float dv = 0.125f;
+
+	CONST int textureTilingNum = 8;
 
 	int iXCounter = 0;
 	int iYCounter = 0;
@@ -129,19 +163,21 @@ void Terrain::BuildVertexBuffer()
 			float y = m_vecHeightMap[i * m_iNumCols + j]; 
 
 			vertices[i * m_iNumCols + j].v3Pos = glm::vec3(x, y, z);
-			vertices[i * m_iNumCols + j].v2Tex.x = iXCounter * 0.125;
-			vertices[i * m_iNumRows + j].v2Tex.y = iYCounter * 0.125;
+
+			vertices[i * m_iNumCols + j].v2Tex.x = j*du;
+			vertices[i * m_iNumCols + j].v2Tex.y = i*dv;
+
 			vertices[i * m_iNumCols + j].v3Norm = glm::vec3(0.0f, 1.0f, 0.0f);
 
 			iYCounter++;
-			if (iYCounter > 8)
+			if (iYCounter > textureTilingNum)
 			{
 				iYCounter = 0;
 			}
 		}
 
 		iXCounter++;
-		if (iXCounter > 8)
+		if (iXCounter > textureTilingNum)
 		{
 			iXCounter = 0;
 		}
@@ -371,13 +407,21 @@ void Terrain::Render()
 	// Pass Tex
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-	glUniform1i(glGetUniformLocation(m_program, "tex"), 0);
+	glBindTexture(GL_TEXTURE_2D, m_textureGrass);
+	glUniform1i(glGetUniformLocation(m_program, "texGrass"), 0);
 
-	
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, m_textureEarth);
+	glUniform1i(glGetUniformLocation(m_program, "texEarth"), 1);
+
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, m_textureSnow);
+	glUniform1i(glGetUniformLocation(m_program, "texSnow"), 2);
+
 	// Bind vao and draw object, unbind vao
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
+
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 

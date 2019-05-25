@@ -33,10 +33,14 @@ void CSceneManager::Init()
 	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
 
 	oldDeltaTime = 1.0f;
+	m_Controls = THIRDPERSON;
+
 	/*Menus and buttons*/
 	m_menutext = new TextLabel("Press Q for control list", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
 	m_menutext->SetScale(0.06f);
 	m_menutext->SetPos({ 127.0f, 1.0f });
+	m_menutext->SetColor({ 0.0f, 0.0f, 0.0f });
+
 	initinfo menuInfo;
 	menuInfo.objScale = glm::vec3(0.21f, 0.7f, 1.0f);
 	menuInfo.objPosition = glm::vec3(1.5f , 0.0f, 0.0f);
@@ -94,25 +98,38 @@ void CSceneManager::Process()
 	//MenuHandling
 	/***********************************************************************/
 	
-	static bool debugKeyIsPressed;
 	static bool bDebug = false;
-	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F3) == INPUT_HOLD)
-		&& !debugKeyIsPressed)
+	static float yaw = 0.0f;
+	static float pitch = 0.0f;
+
+	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F4) == INPUT_FIRST_PRESS))
 	{
-		debugKeyIsPressed = true;
-		bDebug = !bDebug;
+		m_Controls = MOUSEFREE;
 	}
-	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F3) == INPUT_RELEASE))
+	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F3) == INPUT_FIRST_PRESS))
 	{
-		debugKeyIsPressed = false;
+		m_Controls = FREECAM;
 	}
-	if (bDebug)
+	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F2) == INPUT_FIRST_PRESS))
 	{
+		m_Controls = THIRDPERSON;
+	}
+	
+	switch (m_Controls)
+	{
+	case FIRSTPERSON:
+		break;
+	case THIRDPERSON:
+		PlayerControls();
+		break;
+	case FREECAM:
 		CCameraManager::GetInstance().DebugCamera(deltaTime, 100.0f);
-	}
-	else
-	{
+		break;
+	case MOUSEFREE:
 		glutSetCursor(GLUT_CURSOR_INHERIT);
+		break;
+	default:
+		break;
 	}
 
 }
