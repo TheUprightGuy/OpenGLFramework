@@ -59,7 +59,7 @@ void Terrain::Initialize()
 	ShaderLoader shaderLoader;
 
 	// m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
-	m_program = shaderLoader.CreateProgram("Shaders/TerrainPhongLightingVS.vs", "Shaders/TerrainPhongLightingFS.fs");
+	m_program = shaderLoader.CreateProgram("Shaders/TerrainPhongLightingVS.vs", "Shaders/TerrainPhongLightingFS.fs", nullptr, "Shaders/terrainTess.tcs", "Shaders/terrainTess.tes");
 		
 	LoadHeightMap();
 	Smooth();
@@ -160,7 +160,7 @@ void Terrain::BuildVertexBuffer()
 		for (unsigned int j = 0; j < m_iNumCols; ++j)
 		{
 			float x = -halfWidth + j;
-			float y = m_vecHeightMap[i * m_iNumCols + j]; 
+			float y = m_vecHeightMap[i * m_iNumCols + j];
 
 			vertices[i * m_iNumCols + j].v3Pos = glm::vec3(x, y, z);
 
@@ -420,7 +420,8 @@ void Terrain::Render()
 
 	// Bind vao and draw object, unbind vao
 	glBindVertexArray(m_vao);
-	glDrawElements(GL_TRIANGLES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
+	//glDrawElements(GL_PATCHES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
+	glDrawArrays(GL_PATCHES, 0, m_vecVertices.size());
 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
