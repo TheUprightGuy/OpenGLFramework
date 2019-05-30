@@ -24,6 +24,9 @@ uniform vec3 camPos; // = glm::vec3(1.0f, 1.0f, 3.0f);
 
 uniform float shininess; // = 32.0f;
 
+uniform bool isTextured;
+uniform vec3 setColor;
+
 void main(void)
 {	
     vec4 vTexColor = vec4(0.0);
@@ -63,6 +66,7 @@ void main(void)
 		vTexColor += texture2D(texEarth, fragTexCoord * tilingNum)*fScale;
 		vTexColor += texture2D(texSnow, fragTexCoord * tilingNum)*fScale2;		
 	}	
+
 	else if(fScale > fRange4) {vTexColor = texture2D(texSnow, fragTexCoord * tilingNum);}
 
 
@@ -78,5 +82,4 @@ void main(void)
 	vec3 diffuse = diffuseStr * lightColor;
 
 	color =  vec4(ambient + diffuse, 1.0f) * vTexColor;
-    // color =  vec4(1.0f);
 } 

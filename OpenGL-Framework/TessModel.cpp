@@ -11,7 +11,7 @@ CTessModel::CTessModel(GLuint program)
 		1.0f, 1.0f, 0.0f,
 		-1.0, 1.0, 0.0f
 	};
-	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
+	//glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
 
 	glGenBuffers(1, &m_vbo);
 	glGenVertexArrays(1, &m_vao);

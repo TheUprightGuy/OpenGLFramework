@@ -36,9 +36,9 @@ void CSceneManager::Init()
 	m_Controls = THIRDPERSON;
 
 	/*Menus and buttons*/
-	m_menutext = new TextLabel("Press Q for control list", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
+	m_menutext = new TextLabel("PRess Q for menu", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
 	m_menutext->SetScale(0.06f);
-	m_menutext->SetPos({ 127.0f, 1.0f });
+	m_menutext->SetPos({ 132.0f, 72.0f });
 	m_menutext->SetColor({ 0.0f, 0.0f, 0.0f });
 
 	initinfo menuInfo;
@@ -50,7 +50,7 @@ void CSceneManager::Init()
 	initinfo cubeInfo;
 	cubeInfo.objScale = glm::vec3(1.0f, 1.0f, 1.0f);
 	cubeInfo.objPosition = glm::vec3( 193.574112, -13.8693628, 196.926041 );
-	cubeInfo.imgFilepath = "Resources/NicCage.png";
+	cubeInfo.imgFilepath = "Resources/LOKI.jpg";
 	cubeInfo.RotAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 	cubeInfo.RotationDegrees = 90.0f;
 	m_Cube = new CObject(DEFAULT, MESH_CUBE, cubeInfo);
@@ -93,7 +93,7 @@ void CSceneManager::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0);
 	
-	m_light->Render();
+	//m_light->Render();
 	m_terrain->Render();
 
 	//m_model->Render();
@@ -102,7 +102,7 @@ void CSceneManager::Render()
 	
 	m_geoModel->Render();
 
-	m_tessModel->Render();
+	//m_tessModel->Render();
 
 	m_menutext->Render();
 	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());

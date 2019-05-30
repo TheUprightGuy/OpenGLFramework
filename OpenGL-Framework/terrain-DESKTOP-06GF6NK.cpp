@@ -160,7 +160,7 @@ void Terrain::BuildVertexBuffer()
 		for (unsigned int j = 0; j < m_iNumCols; ++j)
 		{
 			float x = -halfWidth + j;
-			float y = m_vecHeightMap[i * m_iNumCols + j];
+			float y = m_vecHeightMap[i * m_iNumCols + j]; 
 
 			vertices[i * m_iNumCols + j].v3Pos = glm::vec3(x, y, z);
 
@@ -385,7 +385,6 @@ void Terrain::Render()
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	m_light->Render();
@@ -395,17 +394,18 @@ void Terrain::Render()
 	// Pass mvp to shader
 	glm::mat4 MVP = CCameraManager::GetInstance().GetCam()->GetProj() * CCameraManager::GetInstance().GetCam()->GetView();
 
-	GLint MVPloc = glGetUniformLocation(m_program, "mvp");
+	GLint MVPloc = glGetUniformLocation(m_program, "MVP");
 	glUniformMatrix4fv(MVPloc, 1, GL_FALSE, value_ptr(MVP));
 
+	MVPloc = glGetUniformLocation(m_program, "mvp");
+	glUniformMatrix4fv(MVPloc, 1, GL_FALSE, value_ptr(MVP));
 	// Pass campos
 	glm::vec3 camPos = CCameraManager::GetInstance().GetCam()->GetCamPos();
+	glUniform3fv(glGetUniformLocation(m_program, "camPos"), 1, value_ptr(camPos));
 
-	//glUniform3fv(glGetUniformLocation(m_program, "camPos"), 1, value_ptr(camPos));
+	glUniform3fv(glGetUniformLocation(m_program, "setColor"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 
-	//glUniform3fv(glGetUniformLocation(m_program, "setColor"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
-
-	//glUniform1i(glGetUniformLocation(m_program, "isTextured"), 1);
+	glUniform1i(glGetUniformLocation(m_program, "isTextured"), 1);
 	// Pass Tex
 
 	glActiveTexture(GL_TEXTURE0);
@@ -423,8 +423,6 @@ void Terrain::Render()
 	// Bind vao and draw object, unbind vao
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_PATCHES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
-	//glDrawArrays(GL_PATCHES, 0, m_vecVertices.size());
-
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
