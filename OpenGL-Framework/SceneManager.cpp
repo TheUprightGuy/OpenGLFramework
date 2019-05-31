@@ -46,16 +46,22 @@ void CSceneManager::Init()
 	menuInfo.imgFilepath = "Resources/menu.png";
 	m_menuObj = new CObject(DEFAULT, MESH_2D_SPRITE, menuInfo);
 
+	m_cloth = new CCloth();
+	m_cloth->init();
+
 	/*Camera Setup*/
+
 }
 
 void CSceneManager::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0);
-	
+
 	m_menutext->Render();
 	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
+	
+	m_cloth->render();
 
 	glutSwapBuffers();
 }
@@ -65,6 +71,12 @@ void CSceneManager::Process()
 	float newFrameTime = (glutGet(GLUT_ELAPSED_TIME) / 1000.0f);
 	float deltaTime = newFrameTime - oldDeltaTime;
 	oldDeltaTime = (glutGet(GLUT_ELAPSED_TIME) / 1000.0f);
+
+	if (deltaTime < 1.0f)
+	{
+		deltaTime = 1.0f;
+	}
+	m_cloth->process(deltaTime);
 
 	//MenuHandling
 	/***********************************************************************/
@@ -118,7 +130,7 @@ void CSceneManager::Process()
 	case THIRDPERSON:
 		break;
 	case FREECAM:
-		CCameraManager::GetInstance().DebugCamera(deltaTime, 100.0f);
+		CCameraManager::GetInstance().DebugCamera(deltaTime, 50.0f);
 		break;
 	case MOUSEFREE:
 		glutSetCursor(GLUT_CURSOR_INHERIT);
@@ -129,72 +141,5 @@ void CSceneManager::Process()
 
 }
 
-//Takes a plane and point and evals position in regards to the plane
-PointPlace CSceneManager::EvalPoint(Plane PlaneToEval, glm::vec3 PointPos)
-{
-	float fDistance = glm::dot(PlaneToEval.PlaneNorm, PlaneToEval.PlanePoint); 
-	float fFinalVal = (glm::dot(PlaneToEval.PlaneNorm, PointPos)) - fDistance;
-
-	if (fFinalVal == 0)
-	{
-		return(ON_PLANE);
-	}
-	else if (fFinalVal > 0)
-	{
-		return(FRONT_OF_PLANE);
-	}
-	else if (fFinalVal < 0)
-	{
-		return(BACK_OF_PLANE);
-	}
-}
-
-bool CSceneManager::EvalLine(Plane PlaneToEval, Line LineToEval, glm::vec3& CollisionPoint)
-{
-
-	float LinePlaneScalar = (glm::dot(PlaneToEval.PlaneNorm, (PlaneToEval.PlanePoint - LineToEval.P1)) / glm::dot(PlaneToEval.PlaneNorm, (LineToEval.P2 - LineToEval.P1)));
-
-
-	CollisionPoint = LineToEval.P1 + (LinePlaneScalar * (LineToEval.P2 - LineToEval.P1));
-
-	if (LinePlaneScalar > 0 && LinePlaneScalar < 1)
-	{
-		return (true);
-	}
-
-	return false;
-}
-
-bool CSceneManager::CheckMouseCollision(CObject* _object)
-{
-	Line lineEval;
-	lineEval.P1 = CCameraManager::GetInstance().GetCam()->GetCamPos();
-	lineEval.P2 = CCameraManager::GetInstance().GetCam()->GetCamPos() + (10.0f * CInput::GetInstance().GetLookDirection());
-	Plane planeEval;
-	planeEval.PlanePoint = { _object->GetPos().x,
-		_object->GetPos().y,
-		_object->GetPos().z + (_object->GetScale().z) };
-
-	planeEval.PlaneNorm = glm::normalize(_object->GetPos() - planeEval.PlanePoint);
-
-	glm::vec3 collisionPoint;
-
-	if (EvalLine(planeEval, lineEval, collisionPoint))
-	{
-		float fbottom = _object->GetPos().y - (_object->GetScale().y);
-		float ftop = _object->GetPos().y + (_object->GetScale().y);
-
-		float fleft = _object->GetPos().x - (_object->GetScale().x);
-		float fRight = _object->GetPos().x + (_object->GetScale().x);
-
-		if (collisionPoint.x > fleft && collisionPoint.x < fRight &&
-			collisionPoint.y > fbottom && collisionPoint.y < ftop)
-		{
-			return (true);
-		}
-
-	}
-	return(false);
-}
   
 

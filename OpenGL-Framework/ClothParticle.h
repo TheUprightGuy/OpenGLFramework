@@ -13,7 +13,7 @@ public:
 
 	void applyForce(glm::vec3 _forceVec) 
 	{
-		m_vAcc += (m_vPos / m_fMass);
+		m_vAcc += (_forceVec / m_fMass);
 	}
 
 	void pinTo(glm::vec3 _pinnedPos) 
@@ -40,7 +40,16 @@ public:
 		m_nextPos.z = m_vPos.z + velocity.z + 0.5 * m_vAcc.z * timeStepSq;
 		// reset variables
 		m_vLastPos = m_vPos;
-		
+
+		if (pinned) 
+		{
+			m_vPos = m_vPinnedPos;
+		}
+		else
+		{
+			m_vPos = m_nextPos;
+		}
+
 		m_vAcc = glm::vec3();
 	}
 
@@ -65,8 +74,8 @@ public:
 
 	glm::vec3 m_vPos;
 	float m_fMass = 1;
-	float m_fDamping = 20;
-	float m_fGravity = 980.0f;
+	float m_fDamping = 0.2;
+	float m_fGravity = -0.98f;
 
 private:
 

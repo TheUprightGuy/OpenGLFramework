@@ -26,9 +26,6 @@
     <Filter Include="Mesh\Meshs">
       <UniqueIdentifier>{5c36cedc-6058-4f62-9f50-e5f580385988}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Lights">
-      <UniqueIdentifier>{a412f0a2-c504-48e9-8b58-28dd3a6c54df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders\ProgManager">
       <UniqueIdentifier>{232eaf94-e8b0-41ca-84b0-0628f96def90}</UniqueIdentifier>
     </Filter>
@@ -38,20 +35,11 @@
     <Filter Include="Camera\CamManager">
       <UniqueIdentifier>{fc370297-b69d-47b5-8295-98c28009992e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cubemap">
-      <UniqueIdentifier>{a5fe0110-71f6-46de-ab84-67b1fa32de03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ModelLoader">
-      <UniqueIdentifier>{ba7362c4-9983-45c1-b680-93bb4ceb0568}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Objects">
       <UniqueIdentifier>{974bdb2f-0df7-46e4-a3ab-cd6c25c5730b}</UniqueIdentifier>
     </Filter>
     <Filter Include="SceneManager">
       <UniqueIdentifier>{96fb9764-b856-41f6-9d85-c9db11a39a60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Terrain">
-      <UniqueIdentifier>{a69f4480-374f-4382-b841-6b2dea946d7c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cloth">
       <UniqueIdentifier>{295c713c-e618-4612-83fe-8e76be8d246f}</UniqueIdentifier>
@@ -79,15 +67,6 @@
     </Filter>
     <Filter Include="Shaders\VS &amp; FS ShaderFiles\TextShader">
       <UniqueIdentifier>{0e199dcd-5fa5-4f23-bb84-4c2b7a85583c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GeometryModel">
-      <UniqueIdentifier>{60cb9258-dedb-42a0-be61-bea130d16fdb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tessellation">
-      <UniqueIdentifier>{33282e56-c70c-4cd1-955b-68d4ea3660a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FrameBuffer">
-      <UniqueIdentifier>{fa6941f6-f431-479f-94a3-2316f89524ea}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shaders\FrameBuffer Shaders">
       <UniqueIdentifier>{fd2bb08f-2b80-41b6-9219-951d7037244a}</UniqueIdentifier>
@@ -133,29 +112,11 @@
     <ClCompile Include="CameraManager.cpp">
       <Filter>Camera\CamManager</Filter>
     </ClCompile>
-    <ClCompile Include="CCubeMap.cpp">
-      <Filter>Cubemap</Filter>
-    </ClCompile>
     <ClCompile Include="Sphere.cpp">
       <Filter>Mesh\Meshs</Filter>
     </ClCompile>
-    <ClCompile Include="light.cpp">
-      <Filter>Lights</Filter>
-    </ClCompile>
-    <ClCompile Include="terrain.cpp">
-      <Filter>Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="GeoModel.cpp">
-      <Filter>GeometryModel</Filter>
-    </ClCompile>
-    <ClCompile Include="TessModel.cpp">
-      <Filter>Tessellation</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameBuffer.cpp">
-      <Filter>FrameBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="CCloth.cpp">
-      <Filter>Cloth</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,17 +147,11 @@
     <ClInclude Include="SpriteMesh.h">
       <Filter>Mesh\Meshs</Filter>
     </ClInclude>
-    <ClInclude Include="light.h">
-      <Filter>Lights</Filter>
-    </ClInclude>
     <ClInclude Include="ProgramManager.h">
       <Filter>Shaders\ProgManager</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Camera\CamManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CCubeMap.h">
-      <Filter>Cubemap</Filter>
     </ClInclude>
     <ClInclude Include="Sphere.h">
       <Filter>Mesh\Meshs</Filter>
@@ -204,26 +159,8 @@
     <ClInclude Include="utils.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="terrain.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Camera\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="GeoModel.h">
-      <Filter>GeometryModel</Filter>
-    </ClInclude>
-    <ClInclude Include="TessModel.h">
-      <Filter>Tessellation</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameBuffer.h">
-      <Filter>FrameBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>ModelLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMesh.h">
-      <Filter>ModelLoader</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Source Files</Filter>
@@ -304,18 +241,6 @@
     </None>
     <None Include="Shaders\FrameBufferVertex.vs">
       <Filter>Shaders\FrameBuffer Shaders</Filter>
-    </None>
-    <None Include="Shaders\TerrainPhongLightingVS.vs">
-      <Filter>Terrain</Filter>
-    </None>
-    <None Include="Shaders\terrainTess.tcs">
-      <Filter>Terrain</Filter>
-    </None>
-    <None Include="Shaders\terrainTess.tes">
-      <Filter>Terrain</Filter>
-    </None>
-    <None Include="Shaders\TerrainPhongLightingFS.fs">
-      <Filter>Terrain</Filter>
     </None>
   </ItemGroup>
 </Project>

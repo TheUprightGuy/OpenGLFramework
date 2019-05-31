@@ -139,12 +139,8 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CCloth.cpp" />
-    <ClCompile Include="CCubeMap.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
-    <ClCompile Include="FrameBuffer.cpp" />
-    <ClCompile Include="GeoModel.cpp" />
     <ClCompile Include="input.cpp" />
-    <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProgramManager.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -154,32 +150,22 @@
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="object.cpp" />
-    <ClCompile Include="terrain.cpp" />
-    <ClCompile Include="TessModel.cpp" />
     <ClCompile Include="TextLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CCloth.h" />
-    <ClInclude Include="CCubeMap.h" />
     <ClInclude Include="Clothlink.h" />
     <ClInclude Include="ClothParticle.h" />
     <ClInclude Include="CubeMesh.h" />
     <ClInclude Include="CameraManager.h" />
-    <ClInclude Include="FrameBuffer.h" />
-    <ClInclude Include="GeoModel.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="light.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="ProgramManager.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SpriteMesh.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="terrain.h" />
-    <ClInclude Include="TessModel.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="ShaderLoader.h" />
@@ -200,10 +186,6 @@
     <None Include="Shaders\PhongLightingVS.vs" />
     <None Include="Shaders\ReflectFS.fs" />
     <None Include="Shaders\ReflectVS.vs" />
-    <None Include="Shaders\TerrainPhongLightingFS.fs" />
-    <None Include="Shaders\TerrainPhongLightingVS.vs" />
-    <None Include="Shaders\terrainTess.tcs" />
-    <None Include="Shaders\terrainTess.tes" />
     <None Include="Shaders\TessFragmentShader.fs" />
     <None Include="Shaders\tessQuadModel.tcs" />
     <None Include="Shaders\tessQuadModel.tes" />
