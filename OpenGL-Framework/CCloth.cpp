@@ -93,10 +93,15 @@ void CCloth::render()
 
 void CCloth::process(float timestep)
 {
-	for (auto x : m_links)
+	for (int i = 0; i < m_iConstraintAccuracy; i++)
 	{
-		x->solve();
+		for (auto x : m_links)
+		{
+			x->solve();
+		}
 	}
+	
+
 	for (auto x : m_particles)
 	{
 		x->updatePhysics(timestep);
@@ -104,7 +109,8 @@ void CCloth::process(float timestep)
 
 	for (auto x : m_particles)
 	{
-		x->applyForce({ 0.0f, 0.0f, x->m_fMass * (rand() % 20 + 1) * 0.1f });
+		float fRand = (rand() % 20 + 0) * 0.1f;
+		x->applyForce({ 0.0f, 0.0f, x->m_fMass * fRand});
 	}
 	
 

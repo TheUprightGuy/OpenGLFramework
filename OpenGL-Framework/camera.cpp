@@ -3,14 +3,14 @@
 
 CCamera::CCamera(bool bIsOrtho)
 {
-	m_CamPos = glm::vec3(0.0f, 10.0f, 500.0f);
-	m_TargetPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	m_CamPos = glm::vec3(-400.0f, 1000.0f, 600.0f);
+	m_TargetPos = glm::vec3(900.0f, 800.0f, 0.0f);
 	m_UpVec = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	//m_View = glm::lookAt(
-	//	m_CamPos,
-	//	m_TargetPos - m_CamPos,
-	//	m_UpVec);
+	m_View = glm::lookAt(
+		m_CamPos,
+		m_TargetPos - m_CamPos,
+		m_UpVec);
 	//Weird shit going on
 
 	glm::vec3 camPos = GetCamPos();
@@ -18,12 +18,12 @@ CCamera::CCamera(bool bIsOrtho)
 
 	glm::mat4 view; /*= glm::translate(glm::mat4(), camPos);*/
 
-	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 1.0f, 0.0f, 0.0f });
-	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 1.0f, 0.0f });
-	view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 0.0f, 1.0f });
-	view *= glm::translate(glm::mat4(), camPos);
+	//view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 1.0f, 0.0f, 0.0f });
+	//view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 1.0f, 0.0f });
+	//view *= glm::rotate(glm::mat4(), glm::radians(0.0f), { 0.0f, 0.0f, 1.0f });
+	//view *= glm::translate(glm::mat4(), camPos);
 
-	m_View = view; //I'll do it myself then >:(
+	//m_View = view; //I'll do it myself then >:(
 
 	GLfloat fWidth = (GLfloat)glutGet(GLUT_WINDOW_WIDTH);
 	GLfloat fHeight = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);

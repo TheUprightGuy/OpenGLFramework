@@ -13,6 +13,7 @@ public:
 		m_width = 20;
 		m_yStart = 1;
 		m_iRestingDistances = 50.0f;
+		m_iConstraintAccuracy = 5;
 	}
 	~CCloth();
 
@@ -29,6 +30,7 @@ private:
 	int m_iRestingDistances;
 	float gravity;
 
+	int m_iConstraintAccuracy;
 	std::vector<CClothParticle*> m_particles;
 	std::vector<CClothLink*> m_links;
 };

@@ -62,7 +62,6 @@ public:
 	{
 		KeyState[key] = INPUT_RELEASE;
 		m_CurrentState = INPUT_RELEASE;
-		ModifierKeyState = glutGetModifiers();
 	}
 	void KeyboardDown(unsigned char key, int x, int y)
 	{
@@ -70,7 +69,6 @@ public:
 		if (KeyState[key] == INPUT_RELEASE) { KeyState[key] = INPUT_FIRST_PRESS; }
 		
 		m_CurrentState = INPUT_HOLD;
-		ModifierKeyState = glutGetModifiers();
 	}
 
 	int GetModifiers(){return(ModifierKeyState);}
