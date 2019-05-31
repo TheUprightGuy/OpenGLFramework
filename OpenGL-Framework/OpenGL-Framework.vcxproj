@@ -22,13 +22,13 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A6DFC928-41A3-4660-898F-7682C031F848}</ProjectGuid>
     <RootNamespace>OpenGLFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -172,26 +172,7 @@
     <ClInclude Include="object.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\CubeMapFS.fs" />
-    <None Include="Shaders\CubeMapVS.vs" />
     <None Include="Shaders\FragmentShader.fs" />
-    <None Include="Shaders\FrameBufferFragment.fs" />
-    <None Include="Shaders\FrameBufferVertex.vs" />
-    <None Include="Shaders\GeoFragmentShader.fs" />
-    <None Include="Shaders\GeoGeometryShader.gs" />
-    <None Include="Shaders\GeoVertexShader.vs" />
-    <None Include="Shaders\Model.fs" />
-    <None Include="Shaders\Model.vs" />
-    <None Include="Shaders\PhongLightingFS.fs" />
-    <None Include="Shaders\PhongLightingVS.vs" />
-    <None Include="Shaders\ReflectFS.fs" />
-    <None Include="Shaders\ReflectVS.vs" />
-    <None Include="Shaders\TessFragmentShader.fs" />
-    <None Include="Shaders\tessQuadModel.tcs" />
-    <None Include="Shaders\tessQuadModel.tes" />
-    <None Include="Shaders\TessVertexShader.vs" />
-    <None Include="Shaders\Text.fs" />
-    <None Include="Shaders\Text.vs" />
     <None Include="Shaders\VertexShader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

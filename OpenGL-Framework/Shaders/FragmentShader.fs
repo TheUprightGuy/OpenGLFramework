@@ -25,20 +25,5 @@ uniform vec3 setColor;
 
 void main(void)
 {	
-	//color = vec4((fragColor), 1.0);
-	vec4 colorval;
-	vec2 newCoords = vec2(fragTexCoord.x * fEndX, fragTexCoord.y * fEndY);
-	newCoords = vec2(newCoords.x + fStartX, newCoords.y + fStartY);
-
-	vec4 newAlpha = vec4(1.0, 1.0, 1.0, alpha);
-	vec4 texture = (texture(tex, newCoords) * newAlpha);
-	colorval = (texture);
-	
-	float d = distance(mWorldPos.xyz, camPos);
-	float lerp = (d -100.0f)/100.f;
-	lerp = clamp(lerp, 0.0, 1.0);
-	vec4 vFogColor = vec4(0.5f, 0.5f, 0.5f, 1.0f);
-	
-	color =  colorval;
-	//color =  colorval;
+	color =  vec4(1.0f, 0.0f, 0.0f, 1.0f);;
 } 

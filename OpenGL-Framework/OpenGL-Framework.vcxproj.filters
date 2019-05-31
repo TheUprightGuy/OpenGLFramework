@@ -44,32 +44,8 @@
     <Filter Include="Cloth">
       <UniqueIdentifier>{295c713c-e618-4612-83fe-8e76be8d246f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders\TesselationShaders">
-      <UniqueIdentifier>{3d4d2dec-bde2-4336-aeea-85d3a7555901}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\Geo Shaders">
-      <UniqueIdentifier>{61df1a21-8d29-457c-9782-6e749565c129}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders\VS &amp; FS ShaderFiles">
       <UniqueIdentifier>{88d59a5d-fcc0-4990-855b-54aa22aab6f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\VS &amp; FS ShaderFiles\CubeMapShader">
-      <UniqueIdentifier>{9b24ce4f-f995-4873-9b32-32541169dadf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\VS &amp; FS ShaderFiles\ModelShader">
-      <UniqueIdentifier>{5ab6559c-ef1e-4c7f-8ceb-c84c0f726c95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\VS &amp; FS ShaderFiles\PhongLighting">
-      <UniqueIdentifier>{6155a77b-3560-42e9-9c70-35f015f78786}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\VS &amp; FS ShaderFiles\RefectShader">
-      <UniqueIdentifier>{74fa232f-1b66-44cf-96a6-18f3579f5923}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\VS &amp; FS ShaderFiles\TextShader">
-      <UniqueIdentifier>{0e199dcd-5fa5-4f23-bb84-4c2b7a85583c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\FrameBuffer Shaders">
-      <UniqueIdentifier>{fd2bb08f-2b80-41b6-9219-951d7037244a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +141,6 @@
     <ClInclude Include="utils.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="terrain.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="CCloth.h">
       <Filter>Cloth</Filter>
     </ClInclude>
@@ -179,68 +152,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\FragmentShader.fs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
-    </None>
     <None Include="Shaders\VertexShader.vs">
       <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
     </None>
-    <None Include="Shaders\CubeMapFS.fs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\CubeMapShader</Filter>
-    </None>
-    <None Include="Shaders\CubeMapVS.vs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\CubeMapShader</Filter>
-    </None>
-    <None Include="Shaders\Model.vs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\ModelShader</Filter>
-    </None>
-    <None Include="Shaders\Model.fs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\ModelShader</Filter>
-    </None>
-    <None Include="Shaders\PhongLightingFS.fs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\PhongLighting</Filter>
-    </None>
-    <None Include="Shaders\PhongLightingVS.vs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\PhongLighting</Filter>
-    </None>
-    <None Include="Shaders\ReflectVS.vs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\RefectShader</Filter>
-    </None>
-    <None Include="Shaders\ReflectFS.fs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\RefectShader</Filter>
-    </None>
-    <None Include="Shaders\Text.fs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\TextShader</Filter>
-    </None>
-    <None Include="Shaders\Text.vs">
-      <Filter>Shaders\VS &amp; FS ShaderFiles\TextShader</Filter>
-    </None>
-    <None Include="Shaders\GeoFragmentShader.fs">
-      <Filter>Shaders\Geo Shaders</Filter>
-    </None>
-    <None Include="Shaders\GeoGeometryShader.gs">
-      <Filter>Shaders\Geo Shaders</Filter>
-    </None>
-    <None Include="Shaders\GeoVertexShader.vs">
-      <Filter>Shaders\Geo Shaders</Filter>
-    </None>
-    <None Include="Shaders\tessQuadModel.tcs">
-      <Filter>Shaders\TesselationShaders</Filter>
-    </None>
-    <None Include="Shaders\tessQuadModel.tes">
-      <Filter>Shaders\TesselationShaders</Filter>
-    </None>
-    <None Include="Shaders\TessFragmentShader.fs">
-      <Filter>Shaders\TesselationShaders</Filter>
-    </None>
-    <None Include="Shaders\TessVertexShader.vs">
-      <Filter>Shaders\TesselationShaders</Filter>
-    </None>
-    <None Include="Shaders\FrameBufferFragment.fs">
-      <Filter>Shaders\FrameBuffer Shaders</Filter>
-    </None>
-    <None Include="Shaders\FrameBufferVertex.vs">
-      <Filter>Shaders\FrameBuffer Shaders</Filter>
+    <None Include="Shaders\FragmentShader.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
     </None>
   </ItemGroup>
 </Project>

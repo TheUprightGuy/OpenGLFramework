@@ -43,7 +43,7 @@ void CCloth::init()
 
 void CCloth::render()
 {
-	glUseProgram(CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING));
+	glUseProgram(CProgrammerManager::GetInstance().GetProgram(DEFAULT));
 
 	//glPolygonMode(GL_FRONT, GL_LINE);
 
@@ -63,7 +63,7 @@ void CCloth::render()
 	/************************************///Texture Scale matrix
 
 	glm::mat4 Model = translate * rotation * scale;
-	GLint ModelLoc = glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING), "model");
+	GLint ModelLoc = glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(DEFAULT), "model");
 	glUniformMatrix4fv(ModelLoc, 1, GL_FALSE, glm::value_ptr(Model));
 
 	glm::mat4 MVP;
@@ -71,17 +71,17 @@ void CCloth::render()
 
 	glm::mat4 view = CCameraManager::GetInstance().GetCam()->GetView();
 	glm::mat4 proj = CCameraManager::GetInstance().GetCam()->GetProj();
-	glUniform3fv(glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING), "camPos"), 1, glm::value_ptr(CCameraManager::GetInstance().GetCam()->GetCamPos()));
+	glUniform3fv(glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(DEFAULT), "camPos"), 1, glm::value_ptr(CCameraManager::GetInstance().GetCam()->GetCamPos()));
 
 	MVP = proj * view * Model;
 
-	GLint MVPLoc = glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING), "MVP");
+	GLint MVPLoc = glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(DEFAULT), "MVP");
 	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr(MVP));
 
 	/***********************************/
 
 
-	glUniform1f(glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING), "alpha"), 1.0f);
+	glUniform1f(glGetUniformLocation(CProgrammerManager::GetInstance().GetProgram(DEFAULT), "alpha"), 1.0f);
 	/***********************************/
 
 

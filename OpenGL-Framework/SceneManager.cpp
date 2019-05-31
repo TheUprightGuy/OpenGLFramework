@@ -56,7 +56,7 @@ void CSceneManager::Init()
 void CSceneManager::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0);
 
 	m_menutext->Render();
 	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
