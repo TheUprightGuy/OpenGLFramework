@@ -50,7 +50,6 @@ public:
 	void Render()
 	{
 		for (GLuint i = 0; i < this->meshes.size(); i++) {
-
 		//printf("mesh size: %d \n", meshes.size());
 
 			this->meshes[i].Render(camera, program);

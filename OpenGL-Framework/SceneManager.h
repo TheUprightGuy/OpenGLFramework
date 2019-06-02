@@ -23,24 +23,7 @@
 #include "TessModel.h"
 #include "FrameBuffer.h"
 
-struct Plane
-{
-	glm::vec3 PlaneNorm;
-	glm::vec3 PlanePoint;
-};
 
-struct Line
-{
-	glm::vec3 P1;
-	glm::vec3 P2;
-};
-
-enum PointPlace
-{
-	ON_PLANE,
-	FRONT_OF_PLANE,
-	BACK_OF_PLANE
-};
 
 enum ControlScheme
 {
@@ -64,9 +47,7 @@ public:
 	void Process();
 
 	void PlayerControls();
-	PointPlace EvalPoint(Plane PlaneToEval, glm::vec3 PointPos);
-	bool EvalLine(Plane PlaneToEval, Line LineToEval, glm::vec3& CollisionPoint);
-	bool CheckMouseCollision(CObject* _object);
+	
 
 	glm::vec3 lerpfunc(glm::vec3 vecA, glm::vec3 vecB, float percent)
 	{
@@ -90,15 +71,15 @@ private:
 	//Global input
 	CInput* m_pInput;
 
+	CLight* m_light;
+	
+	TextLabel* m_menutext;
 	CObject* m_menuObj;
+	
 	CObject* m_Cube;
 	Model* m_model;
 
-	TextLabel* m_menutext;
-
 	Terrain* m_terrain;
-
-	CLight* m_light;
 
 	CGeometryModel* m_geoModel;
 	CTessModel* m_tessModel;

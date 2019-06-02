@@ -36,9 +36,9 @@ void CSceneManager::Init()
 	m_Controls = THIRDPERSON;
 
 	/*Menus and buttons*/
-	m_menutext = new TextLabel("PRess Q for menu", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
+	m_menutext = new TextLabel("Press Q for menu", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
 	m_menutext->SetScale(0.06f);
-	m_menutext->SetPos({ 132.0f, 72.0f });
+	m_menutext->SetPos({ 132.0f, 5.0f });
 	m_menutext->SetColor({ 0.0f, 0.0f, 0.0f });
 
 	initinfo menuInfo;
@@ -63,54 +63,37 @@ void CSceneManager::Init()
 	m_light = new CLight(m_program);
 	m_light->Position({ 50.0f, 1000.0f, 0.0f });
 
-	ShaderLoader GeoLoader;
-	GLuint GeoProg = GeoLoader.CreateProgram("Shaders/GeoVertexShader.vs", "Shaders/GeoFragmentShader.fs", "Shaders/GeoGeometryShader.gs");
+	m_model = new Model("Resources/Models/skull/skull.obj");
 
-	m_geoModel = new CGeometryModel(GeoProg);
-	m_geoModel->SetPosition({ 200.0f, -14.0f, 195.0f});
-
-	GLuint tessProgram = GeoLoader.CreateProgram("Shaders/TessVertexShader.vs",
-		"Shaders/TessFragmentShader.fs", nullptr,
-		"Shaders/tessQuadModel.tcs",
-		"Shaders/tessQuadModel.tes");
-
-	m_tessModel = new CTessModel(tessProgram);
-	m_tessModel->SetPos({ 190.0f, -14.0f, 195.0f });
-
-	GLuint fbProgram = GeoLoader.CreateProgram("Shaders/FrameBufferVertex.vs",
-		"Shaders/FrameBufferFragment.fs");
 	 
-	//m_frameBuffer = new CFrameBuffer(fbProgram);
 }
 
 void CSceneManager::Render()
 {
-	if (m_frameBuffer != nullptr)
+	/*if (m_frameBuffer != nullptr)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer->GetFBO());
 		glEnable(GL_DEPTH_TEST);
-	}
+	}*/
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0);
 	
-	//m_light->Render();
+	m_model->Render();
+
+	m_light->Render();
 	m_terrain->Render();
 
 	//m_model->Render();
-	m_Cube->Render(CCameraManager::GetInstance().GetCam());
+	//m_Cube->Render(CCameraManager::GetInstance().GetCam());
 
-	
-	m_geoModel->Render();
+	//m_menutext->Render();
+	//m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
 
-	//m_tessModel->Render();
-
-	m_menutext->Render();
-	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
-
-	if (m_frameBuffer != nullptr)
-	{
-		m_frameBuffer->Render();
-	}
+	//if (m_frameBuffer != nullptr)
+	//{
+	//	m_frameBuffer->Render();
+	//}
 
 	glutSwapBuffers();
 }
@@ -243,73 +226,4 @@ void CSceneManager::PlayerControls()
 	CCameraManager::GetInstance().GetCam()->SetCamPos(m_Cube->GetPos() + (-camVec * 8.0f));
 	CCameraManager::GetInstance().GetCam()->UpdateView();
 }
-
-//Takes a plane and point and evals position in regards to the plane
-PointPlace CSceneManager::EvalPoint(Plane PlaneToEval, glm::vec3 PointPos)
-{
-	float fDistance = glm::dot(PlaneToEval.PlaneNorm, PlaneToEval.PlanePoint); 
-	float fFinalVal = (glm::dot(PlaneToEval.PlaneNorm, PointPos)) - fDistance;
-
-	if (fFinalVal == 0)
-	{
-		return(ON_PLANE);
-	}
-	else if (fFinalVal > 0)
-	{
-		return(FRONT_OF_PLANE);
-	}
-	else if (fFinalVal < 0)
-	{
-		return(BACK_OF_PLANE);
-	}
-}
-
-bool CSceneManager::EvalLine(Plane PlaneToEval, Line LineToEval, glm::vec3& CollisionPoint)
-{
-
-	float LinePlaneScalar = (glm::dot(PlaneToEval.PlaneNorm, (PlaneToEval.PlanePoint - LineToEval.P1)) / glm::dot(PlaneToEval.PlaneNorm, (LineToEval.P2 - LineToEval.P1)));
-
-
-	CollisionPoint = LineToEval.P1 + (LinePlaneScalar * (LineToEval.P2 - LineToEval.P1));
-
-	if (LinePlaneScalar > 0 && LinePlaneScalar < 1)
-	{
-		return (true);
-	}
-
-	return false;
-}
-
-bool CSceneManager::CheckMouseCollision(CObject* _object)
-{
-	Line lineEval;
-	lineEval.P1 = CCameraManager::GetInstance().GetCam()->GetCamPos();
-	lineEval.P2 = CCameraManager::GetInstance().GetCam()->GetCamPos() + (10.0f * CInput::GetInstance().GetLookDirection());
-	Plane planeEval;
-	planeEval.PlanePoint = { _object->GetPos().x,
-		_object->GetPos().y,
-		_object->GetPos().z + (_object->GetScale().z) };
-
-	planeEval.PlaneNorm = glm::normalize(_object->GetPos() - planeEval.PlanePoint);
-
-	glm::vec3 collisionPoint;
-
-	if (EvalLine(planeEval, lineEval, collisionPoint))
-	{
-		float fbottom = _object->GetPos().y - (_object->GetScale().y);
-		float ftop = _object->GetPos().y + (_object->GetScale().y);
-
-		float fleft = _object->GetPos().x - (_object->GetScale().x);
-		float fRight = _object->GetPos().x + (_object->GetScale().x);
-
-		if (collisionPoint.x > fleft && collisionPoint.x < fRight &&
-			collisionPoint.y > fbottom && collisionPoint.y < ftop)
-		{
-			return (true);
-		}
-
-	}
-	return(false);
-}
-  
 

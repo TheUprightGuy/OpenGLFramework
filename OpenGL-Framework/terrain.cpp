@@ -46,7 +46,7 @@ Terrain::Terrain()
 	m_fWidth = static_cast<float>(m_iNumCols);
 	m_fDepth = static_cast<float>(m_iNumRows);
 
-	m_strFilePath = "coastMountain513.raw";
+	m_strFilePath = "cliffs.raw";
 }
 
 Terrain::~Terrain()
@@ -59,7 +59,7 @@ void Terrain::Initialize()
 	ShaderLoader shaderLoader;
 
 	// m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
-	m_program = shaderLoader.CreateProgram("Shaders/TerrainPhongLightingVS.vs", "Shaders/TerrainPhongLightingFS.fs", nullptr, "Shaders/terrainTess.tcs", "Shaders/terrainTess.tes");
+	m_program = shaderLoader.CreateProgram("Shaders/TerrainPhongLightingVS.vs", "Shaders/TerrainPhongLightingFS.fs");
 		
 	LoadHeightMap();
 	Smooth();
@@ -394,10 +394,8 @@ void Terrain::Render()
 
 	// Pass mvp to shader
 	glm::mat4 MVP = CCameraManager::GetInstance().GetCam()->GetProj() * CCameraManager::GetInstance().GetCam()->GetView();
-
-	GLint MVPloc = glGetUniformLocation(m_program, "mvp");
+	GLuint  MVPloc = glGetUniformLocation(m_program, "MVP");
 	glUniformMatrix4fv(MVPloc, 1, GL_FALSE, value_ptr(MVP));
-
 	// Pass campos
 	glm::vec3 camPos = CCameraManager::GetInstance().GetCam()->GetCamPos();
 
@@ -422,7 +420,7 @@ void Terrain::Render()
 
 	// Bind vao and draw object, unbind vao
 	glBindVertexArray(m_vao);
-	glDrawElements(GL_PATCHES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, m_vecIndices.size(), GL_UNSIGNED_INT, 0);
 	//glDrawArrays(GL_PATCHES, 0, m_vecVertices.size());
 
 	glBindVertexArray(0);

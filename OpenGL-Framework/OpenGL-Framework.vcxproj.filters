@@ -5,9 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{e43dddaf-31cb-42cb-9d2e-3d860082cbd3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Audio">
       <UniqueIdentifier>{29bbf93d-d409-4423-afb8-37d9c1f538e2}</UniqueIdentifier>
     </Filter>
@@ -22,9 +19,6 @@
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{5a9dfe05-ebcf-46e9-abab-d27a0541e6c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh\Meshs">
-      <UniqueIdentifier>{5c36cedc-6058-4f62-9f50-e5f580385988}</UniqueIdentifier>
     </Filter>
     <Filter Include="Lights">
       <UniqueIdentifier>{a412f0a2-c504-48e9-8b58-28dd3a6c54df}</UniqueIdentifier>
@@ -88,6 +82,12 @@
     </Filter>
     <Filter Include="Shaders\FrameBuffer Shaders">
       <UniqueIdentifier>{fd2bb08f-2b80-41b6-9219-951d7037244a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{e43dddaf-31cb-42cb-9d2e-3d860082cbd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh\Meshs">
+      <UniqueIdentifier>{5c36cedc-6058-4f62-9f50-e5f580385988}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
