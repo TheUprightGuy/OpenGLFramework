@@ -29,7 +29,7 @@ public:
 
 		glm::vec3 velocity = m_vPos - m_vLastPos;
 		// dampen velocity
-		velocity *= 0.99;
+		velocity *= m_fDamping;
 
 		float timeStepSq = timeStep * timeStep;
 
@@ -58,10 +58,10 @@ public:
 	~CClothParticle();
 
 	glm::vec3 m_vPos;
-	float m_fMass = 0.8f;
-	float m_fDamping = 0.2f;
+	float m_fMass = 0.2f;
+	float m_fDamping = 0.99f;
 	float m_fGravity = -0.98f;
-
+	bool m_fUpdatePhysics = true;
 private:
 
 	glm::vec3 m_vLastPos;

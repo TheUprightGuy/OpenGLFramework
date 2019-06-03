@@ -76,7 +76,7 @@ public:
 	/*********************************************/
 	void MouseClick(int button, int glutState, int x, int y)
 	{
-		if (button < 3)
+		if (button < 5)
 		{
 			m_MousePos = glm::vec3(x, y, 0.0f);
 			MouseState[button] = (glutState == GLUT_DOWN) ? INPUT_HOLD : INPUT_RELEASE;

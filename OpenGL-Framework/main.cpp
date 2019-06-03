@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 
 	glutMouseFunc(Mouse); 
 	glutPassiveMotionFunc(PassiveMouse);
-
+	glutMotionFunc(PassiveMouse);
 	glutMainLoop();
 
 	return(0);
@@ -64,6 +64,7 @@ void render()
 
 void update()
 {
+	CInput::GetInstance().UpdateMousePicking();
 	CSceneManager::GetInstance().Process();
 	glutPostRedisplay();
 }
@@ -96,6 +97,6 @@ void Mouse(int button, int glutState, int x, int y)
 void PassiveMouse(int x, int y)
 {
 	CInput::GetInstance().MouseMove(x, y);
-	CInput::GetInstance().UpdateMousePicking();
+	//CInput::GetInstance().UpdateMousePicking();
 }
 

@@ -3,8 +3,8 @@
 
 CCamera::CCamera(bool bIsOrtho)
 {
-	m_CamPos = glm::vec3(-400.0f, 1000.0f, 600.0f);
-	m_TargetPos = glm::vec3(900.0f, 800.0f, 0.0f);
+	m_CamPos = glm::vec3(-200.0f, 10.0f, 200.0f);
+	m_TargetPos = glm::vec3(100.0f, 50.0f, 0.0f);
 	m_UpVec = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	m_View = glm::lookAt(

@@ -92,7 +92,7 @@
       <Filter>Mesh\Meshs</Filter>
     </ClCompile>
     <ClCompile Include="CCloth.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Cloth</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,10 +152,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\VertexShader.vs">
+    <None Include="Shaders\PhongLightingFS.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
+    </None>
+    <None Include="Shaders\PhongLightingVS.vs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
+    </None>
+    <None Include="Shaders\ClothFragmentShader.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
+    </None>
+    <None Include="Shaders\ClothVertexShader.vs">
       <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
     </None>
     <None Include="Shaders\FragmentShader.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
+    </None>
+    <None Include="Shaders\VertexShader.vs">
       <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
     </None>
   </ItemGroup>
