@@ -4,7 +4,8 @@
 class CClothParticle
 {
 public:
-	CClothParticle(glm::vec3 _initPos)
+	CClothParticle(glm::vec3 _initPos, float& _mass, float& _damping, float& _gravity)
+		:m_fMass(_mass), m_fDamping(_damping), m_fGravity(_gravity)
 	{
 		m_vPos = _initPos;
 		m_vLastPos = _initPos;
@@ -60,8 +61,9 @@ public:
 	glm::vec3 m_vPos;
 	float m_fMass = 0.2f;
 	float m_fDamping = 0.99f;
-	float m_fGravity = -0.98f;
+	float& m_fGravity;
 	bool m_fUpdatePhysics = true;
+
 private:
 
 	glm::vec3 m_vLastPos;

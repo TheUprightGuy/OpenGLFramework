@@ -46,9 +46,16 @@ void CSceneManager::Init()
 	menuInfo.imgFilepath = "Resources/menu.png";
 	m_menuObj = new CObject(DEFAULT, MESH_2D_SPRITE, menuInfo);
 
-	m_cloth = new CCloth();
+	m_fGravity = -0.98f;
+	m_fRestDis = 10.0f;
+	m_ConstAcc = 3.0f;
+	m_Mass = 1.0f;
+
+	m_cloth = new CCloth(m_fRestDis,  m_ConstAcc, m_fGravity, m_Mass);
+	//m_cloth = new CCloth();
 	m_cloth->init();
 
+	m_slider = new CSlider(0.5f, -0.9f, -0.6f, -0.3f);
 	/*Camera Setup*/
 
 }
@@ -58,6 +65,7 @@ void CSceneManager::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0);
 
+	m_slider->render();
 	m_menutext->Render();
 	m_menuObj->Render(CCameraManager::GetInstance().GetOrthoCam());
 	
@@ -77,6 +85,9 @@ void CSceneManager::Process()
 		deltaTime = 1.0f;
 	}
 	m_cloth->process(deltaTime);
+
+	m_fGravity = -m_slider->process();
+	std::cout << m_fGravity << std::endl;
 
 	//MenuHandling
 	/***********************************************************************/

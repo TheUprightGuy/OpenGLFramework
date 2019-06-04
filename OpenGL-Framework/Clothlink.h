@@ -3,6 +3,8 @@
 #include "ProgramManager.h"
 #include "ClothParticle.h"
 #include <math.h>
+
+
 class CClothLink
 {
 public:

@@ -16,7 +16,7 @@
 #include "ShaderLoader.h"
 #include "AudioManager.h"
 #include "CCloth.h"
-
+#include "CSlider.h"
 
 enum ControlScheme
 {
@@ -54,6 +54,12 @@ private:
 	CSceneManager(const CSceneManager& _kr) = delete;
 	CSceneManager& operator= (const CSceneManager& _kr) = delete;
 
+	float m_Mass;
+	float m_fGravity;
+	int m_fRestDis;
+	int m_ConstAcc;
+	
+	
 	//Variables
 	GLuint m_program;
 
@@ -62,6 +68,7 @@ private:
 
 	CCloth* m_cloth;
 
+	CSlider* m_slider;
 	CObject* m_menuObj;
 	TextLabel* m_menutext;
 };

@@ -10,11 +10,11 @@ void CCloth::init()
 	{
 		for (int x = 0; x <= m_width; x++) 
 		{
-			CClothParticle *newParticle = new CClothParticle({x * m_iRestingDistances, y * m_iRestingDistances + m_yStart, 0.0f});
+			CClothParticle *newParticle = new CClothParticle({x * m_iRestingDistances, y * m_iRestingDistances + m_yStart, 0.0f}, m_fMass, m_fDamp, m_Gravity);
 
 			if (x != 0)
 			{
-				CClothLink* newLink = new CClothLink(newParticle, m_particles[m_particles.size() - 1], m_iRestingDistances, 0.8f, 45.0f);
+				CClothLink* newLink = new CClothLink(newParticle, m_particles[m_particles.size() - 1], m_iRestingDistances, 0.8f, 50.0f);
 				m_links.push_back(newLink);
 			}
 
@@ -22,7 +22,7 @@ void CCloth::init()
 			// so we convert x,y coordinates to 1 dimension using the formula y*width+x  
 			if (y != 0)
 			{
-				CClothLink* newLink = new CClothLink(newParticle, m_particles[(y - 1) * (m_width + 1) + x], m_iRestingDistances, 0.8f, 45.0f);
+				CClothLink* newLink = new CClothLink(newParticle, m_particles[(y - 1) * (m_width + 1) + x], m_iRestingDistances, 0.8f, 50.0f);
 				m_links.push_back(newLink);
 			}
 
@@ -200,11 +200,9 @@ void CCloth::process(float timestep)
 	int iCount = 0;
 	for (auto x : m_links)
 	{
-
 		CCamera* baseCam = CCameraManager::GetInstance().GetCam();
 		CClothParticle* p1 = x->GetP1();
 		CClothParticle* p2 = x->GetP2();
-
 
 		float camToX = glm::distance(p1->m_vPos, baseCam->GetCamPos());
 		glm::vec3 check1 = lookVec * camToX;
@@ -214,7 +212,8 @@ void CCloth::process(float timestep)
 		glm::vec3 check2 = lookVec * camToX;
 		check2 += baseCam->GetCamPos();
 
-		if (glm::distance(check1, p1->m_vPos) < 10.0f && glm::distance(check2, p2->m_vPos) < 10.0f)
+		float fPointDistance = glm::distance(p1->m_vPos, p2->m_vPos);
+		if (glm::distance(check1, p1->m_vPos) < fPointDistance && glm::distance(check2, p2->m_vPos) < fPointDistance)
 		{
 			if (CInput::GetInstance().GetMouseState(2) == INPUT_HOLD)
 			{

@@ -47,6 +47,9 @@
     <Filter Include="Shaders\VS &amp; FS ShaderFiles">
       <UniqueIdentifier>{88d59a5d-fcc0-4990-855b-54aa22aab6f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sliders">
+      <UniqueIdentifier>{8b8ae782-cd05-47e2-a9ae-29ffd885f2eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="ClothParticle.h">
       <Filter>Cloth</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlider.h">
+      <Filter>Sliders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
