@@ -14,7 +14,7 @@ TextLabel::TextLabel(std::string newtext, std::string newfont, glm::vec2 pos)
 
 	GLfloat fWidth = (GLfloat)glutGet(GLUT_SCREEN_WIDTH);
 	GLfloat fHeight = (GLfloat)glutGet(GLUT_SCREEN_HEIGHT);
-	glm::mat4 proj = glm::ortho(0.0f, 160.0f, 0.0f, 90.0f);
+	glm::mat4 proj = glm::ortho(0.0f, fWidth, 0.0f, fHeight);
 
 	glUseProgram(m_program);
 	glUniformMatrix4fv(glGetUniformLocation(m_program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));

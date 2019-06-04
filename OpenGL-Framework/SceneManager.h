@@ -69,8 +69,12 @@ private:
 	CCloth* m_cloth;
 
 	CSlider* m_slider;
+	CObject* m_slidersBG;
+
 	CObject* m_menuObj;
 	TextLabel* m_menutext;
+
+	TextLabel* m_GravText;
 };
 
 #endif // !__SCENEMANAGER_H__

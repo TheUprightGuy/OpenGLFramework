@@ -19,7 +19,7 @@ public:
 		initinfo barOn;
 		barOn.imgFilepath = "Resources/red.jpg";
 		barOn.objPosition = { sliderPos.x + (distance / 2), sliderStartPos.y, sliderStartPos.z };
-		barOn.objScale = { distance / 2, 0.01f, 0.1f };
+		barOn.objScale = { distance / 2, 0.002f, 0.1f };
 		m_barOn = new CObject(DEFAULT, MESH_2D_SPRITE, barOn);
 
 		distance = glm::distance(sliderPos, sliderEndPos);
@@ -27,13 +27,15 @@ public:
 		initinfo barOff;
 		barOff.imgFilepath = "Resources/green.jpg";
 		barOff.objPosition = { sliderPos.x - (distance / 2), sliderStartPos.y, sliderStartPos.z };
-		barOff.objScale = { distance / 2, 0.01f, 0.1f };
+		barOff.objScale = { distance / 2, 0.002f, 0.1f };
 		m_barOff = new CObject(DEFAULT, MESH_2D_SPRITE, barOff);
 
 		initinfo slider;
 		slider.objScale = { 0.04f, 0.04f, 0.1f };
-		slider.imgFilepath = "Resources/NicCage.png";
+		slider.imgFilepath = "Resources/sliderOnOff.png";
 		slider.objPosition = sliderPos;
+		slider.texStartScale = { 0.0f, 0.0f };
+		slider.texEndScale = { 1.0f, 0.5f };
 		m_slider = new CObject(DEFAULT, MESH_2D_SPRITE, slider);
 	}
 
@@ -62,6 +64,15 @@ public:
 			m_slider->Translate(sliderPos);
 		}
 
+		if (mouseX > _sliderPos.x - _sliderScale.x  && mouseX < _sliderPos.x + _sliderScale.x &&
+			mouseY > _sliderPos.y - _sliderScale.y  && mouseY < _sliderPos.y + _sliderScale.y)
+		{
+			m_slider->ChangeTexture({ 0.0f, 0.5f }, { 1.0f, 0.5f });
+		}
+		else
+		{
+			m_slider->ChangeTexture({ 0.0f, 0.0f }, { 1.0f, 0.5f });
+		}
 		float distance = glm::distance(sliderPos, sliderEndPos);
 		m_barOn->Translate({ sliderPos.x + (distance / 2), sliderEndPos.y, sliderEndPos.z });
 		m_barOn->Scale({ distance / 2, 0.01f, 0.1f });
@@ -75,10 +86,15 @@ public:
 
 	~CSlider();
 
-	void Translate()
+	void Translate( float sliderStartX, float sliderX, float sliderEndX)
 	{
-
+		sliderStartPos += glm::vec3( sliderStartX, 0.0f, 0.0f );
+		sliderPos += glm::vec3(sliderX, 0.0f, 0.0f );
+		m_slider->Translate(sliderPos);
+		sliderEndPos += glm::vec3(sliderEndX, 0.0f, 0.0f);
 	}
+
+	float GetSliderPosX() { return(m_slider->GetPos().x); }
 
 private:
 	CObject* m_slider;

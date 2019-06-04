@@ -176,5 +176,11 @@
     <None Include="Shaders\VertexShader.vs">
       <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
     </None>
+    <None Include="Shaders\Text.fs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
+    </None>
+    <None Include="Shaders\Text.vs">
+      <Filter>Shaders\VS &amp; FS ShaderFiles</Filter>
+    </None>
   </ItemGroup>
 </Project>
