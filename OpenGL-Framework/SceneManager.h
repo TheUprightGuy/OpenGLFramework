@@ -56,8 +56,8 @@ private:
 
 	float m_Mass;
 	float m_fGravity;
-	float m_fDamping;
-	int m_fRestDis;
+	float m_fForce;
+	float m_fRestDis;
 	int m_ConstAcc;
 	float m_fStiffness;
 	float m_fTearSensitivity;
@@ -70,10 +70,12 @@ private:
 
 	CCloth* m_cloth;
 
+	CObject* m_ResetButton;
+	CObject* m_CreditsButton;
 	
 	CObject* m_slidersBG;
-
 	CObject* m_menuObj;
+
 	TextLabel* m_menutext;
 
 	CSlider* m_gravSlider;
@@ -86,8 +88,8 @@ private:
 	TextLabel* m_restDisText;
 	CSlider* m_tearSlider;
 	TextLabel* m_tearText;
-	CSlider* m_dampSlider;
-	TextLabel* m_dampText;
+	CSlider* m_forceSlider;
+	TextLabel* m_ForceText;
 
 };
 

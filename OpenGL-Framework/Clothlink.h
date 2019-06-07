@@ -8,7 +8,7 @@
 class CClothLink
 {
 public:
-	CClothLink(CClothParticle* _point1, CClothParticle* _point2, float restingDist, float stiff, float tearSensitivity)
+	CClothLink(CClothParticle* _point1, CClothParticle* _point2, float& restingDist, float& stiff, float& tearSensitivity)
 		:m_p1(_point1), m_p2(_point2),
 		m_fRestingDistance(restingDist),
 		lerpColor({1.0f, 0.0f, 0.0f}),
@@ -73,8 +73,8 @@ private:
 	CClothParticle* m_p2;
 	CClothParticle* m_p1;
 	
-	float m_fRestingDistance;
-	float m_fStiffness;
-	float m_fTearSensitivity;
+	float& m_fRestingDistance;
+	float& m_fStiffness;
+	float& m_fTearSensitivity;
 
 };

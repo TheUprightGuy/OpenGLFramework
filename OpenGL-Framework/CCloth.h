@@ -24,8 +24,8 @@ public:
 		m_program = _shader.CreateProgram("Shaders/ClothVertexShader.vs", "Shaders/ClothFragmentShader.fs");
 	}*/
 
-	CCloth(int& _restingDist, int& _ConstraintAcc, float& gravity, float& _mass, float _damp = 0.99f)
-		:m_iRestingDistances(_restingDist ), m_iConstraintAccuracy(_ConstraintAcc), m_Gravity(gravity), m_fMass(_mass), m_fDamp(_damp)
+	CCloth(float& _restingDist, int& _ConstraintAcc, float& gravity, float& _mass, float& _force, float& _Stiff, float& _TearSense)
+		:m_iRestingDistances(_restingDist ), m_iConstraintAccuracy(_ConstraintAcc), m_Gravity(gravity), m_fMass(_mass), m_fForce(_force), m_fStiffNess(_Stiff), m_fTearSensitivity(_TearSense)
 	{
 		m_length = 20;
 		m_width = 20;
@@ -39,19 +39,26 @@ public:
 	//Start Pos @ the top left of the cloth
 	void init();
 	void render();
-	void process(float timestep);
-
+	void process(float timestep, bool _mouseForces);
+	void reset()
+	{
+		m_particles.clear();
+		m_links.clear();
+		init();
+	}
 private:
 	int m_width;
 	int m_length;
 
 	int m_yStart;
 
-	int& m_iRestingDistances;
+	float& m_iRestingDistances;
 
 	float& m_Gravity;
 	float& m_fMass;
-	float m_fDamp;
+	float& m_fForce;
+	float& m_fStiffNess;
+	float& m_fTearSensitivity;
 
 	GLuint m_program;
 	CObject* m_sphere;

@@ -4,8 +4,8 @@
 class CClothParticle
 {
 public:
-	CClothParticle(glm::vec3 _initPos, float& _mass, float& _damping, float& _gravity)
-		:m_fMass(_mass), m_fDamping(_damping), m_fGravity(_gravity)
+	CClothParticle(glm::vec3 _initPos, float& _mass, float& _gravity)
+		:m_fMass(_mass), m_fGravity(_gravity)
 	{
 		m_vPos = _initPos;
 		m_vLastPos = _initPos;
@@ -27,7 +27,12 @@ public:
 	{ 
 		// timeStep should be in elapsed seconds (deltaTime)
 		applyForce({0.0f, m_fMass * m_fGravity, 0.0f});
-
+		static float prevMass = m_fMass;
+		if (prevMass != m_fMass)
+		{
+			std::cout << m_fMass << std::endl;
+			prevMass = m_fMass;
+		}
 		glm::vec3 velocity = m_vPos - m_vLastPos;
 		// dampen velocity
 		velocity *= m_fDamping;
@@ -59,7 +64,7 @@ public:
 	~CClothParticle();
 
 	glm::vec3 m_vPos;
-	float m_fMass = 0.2f;
+	float& m_fMass;
 	float m_fDamping = 0.99f;
 	float& m_fGravity;
 	bool m_fUpdatePhysics = true;

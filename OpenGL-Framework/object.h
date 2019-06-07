@@ -52,6 +52,17 @@ public:
 		m_RotAxis = _rotAxis;
 	}
 
+	bool Contains(glm::vec3 _coords)
+	{
+		float top = m_objPosition.y + m_objScale.y;
+		float bottom = m_objPosition.y - m_objScale.y;
+		float left = m_objPosition.x - m_objScale.x;
+		float right = m_objPosition.x + m_objScale.x;
+
+		return (_coords.x > left && _coords.x < right &&
+			_coords.y > bottom && _coords.y < top);
+	}
+
 	void Alpha(float _alpha) { m_Alpha = _alpha; }
 	glm::vec3 GetPos() { return(m_objPosition); }
 	glm::vec3 GetScale() { return(m_objScale); }

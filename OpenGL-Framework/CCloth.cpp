@@ -10,11 +10,11 @@ void CCloth::init()
 	{
 		for (int x = 0; x <= m_width; x++) 
 		{
-			CClothParticle *newParticle = new CClothParticle({x * m_iRestingDistances, y * m_iRestingDistances + m_yStart, 0.0f}, m_fMass, m_fDamp, m_Gravity);
+			CClothParticle *newParticle = new CClothParticle({x * m_iRestingDistances, y * m_iRestingDistances + m_yStart, 0.0f}, m_fMass, m_Gravity);
 
 			if (x != 0)
 			{
-				CClothLink* newLink = new CClothLink(newParticle, m_particles[m_particles.size() - 1], m_iRestingDistances, 0.8f, 50.0f);
+				CClothLink* newLink = new CClothLink(newParticle, m_particles[m_particles.size() - 1], m_iRestingDistances, m_fStiffNess, m_fTearSensitivity);
 				m_links.push_back(newLink);
 			}
 
@@ -22,7 +22,7 @@ void CCloth::init()
 			// so we convert x,y coordinates to 1 dimension using the formula y*width+x  
 			if (y != 0)
 			{
-				CClothLink* newLink = new CClothLink(newParticle, m_particles[(y - 1) * (m_width + 1) + x], m_iRestingDistances, 0.8f, 50.0f);
+				CClothLink* newLink = new CClothLink(newParticle, m_particles[(y - 1) * (m_width + 1) + x], m_iRestingDistances, m_fStiffNess, m_fTearSensitivity);
 				m_links.push_back(newLink);
 			}
 
@@ -101,7 +101,7 @@ void CCloth::render()
 
 }
 
-void CCloth::process(float timestep)
+void CCloth::process(float timestep, bool _mouseForces)
 {
 	static CClothParticle* m_Collided;
 	glm::vec3 lookVec = CInput::GetInstance().GetLookDirection();
@@ -154,12 +154,13 @@ void CCloth::process(float timestep)
 	{
 		force += 5.0f;
 		std::cout << force << std::endl;
+
 	}
 	//This applies said force
 	/***************************************************************/
-	if (CInput::GetInstance().GetMouseState(0) == INPUT_HOLD && m_Collided != nullptr)
+	if (CInput::GetInstance().GetMouseState(0) == INPUT_HOLD && m_Collided != nullptr && _mouseForces)
 	{
-		m_Collided->applyForce(lookVec * force);
+		m_Collided->applyForce(lookVec * m_fForce);
 	}
 	/***************************************************************/
 
@@ -169,7 +170,7 @@ void CCloth::process(float timestep)
 	static CClothParticle* m_Locked = nullptr;
 	static bool bLocked = false;
 
-	if (CInput::GetInstance().GetMouseState(1) == INPUT_HOLD && !bLocked)
+	if (CInput::GetInstance().GetMouseState(1) == INPUT_HOLD && !bLocked && _mouseForces)
 	{
 		m_Locked = m_Collided;
 		bLocked = true;
@@ -182,7 +183,7 @@ void CCloth::process(float timestep)
 	//If middle click is held down then lock m_locked position to the mouse position,
 	//or more accurately the mouse position in regards to the cloth
 	/***************************************************************/
-	if (bLocked)
+	if (bLocked )
 	{
 		CCamera* baseCam = CCameraManager::GetInstance().GetCam();
 
@@ -215,7 +216,7 @@ void CCloth::process(float timestep)
 		float fPointDistance = glm::distance(p1->m_vPos, p2->m_vPos);
 		if (glm::distance(check1, p1->m_vPos) < fPointDistance && glm::distance(check2, p2->m_vPos) < fPointDistance)
 		{
-			if (CInput::GetInstance().GetMouseState(2) == INPUT_HOLD)
+			if (CInput::GetInstance().GetMouseState(2) == INPUT_HOLD && _mouseForces)
 			{
 				m_links.erase(m_links.begin() + iCount);
 			}
