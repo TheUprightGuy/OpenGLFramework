@@ -56,9 +56,11 @@ private:
 
 	float m_Mass;
 	float m_fGravity;
+	float m_fDamping;
 	int m_fRestDis;
 	int m_ConstAcc;
-	
+	float m_fStiffness;
+	float m_fTearSensitivity;
 	
 	//Variables
 	GLuint m_program;
@@ -68,13 +70,25 @@ private:
 
 	CCloth* m_cloth;
 
-	CSlider* m_slider;
+	
 	CObject* m_slidersBG;
 
 	CObject* m_menuObj;
 	TextLabel* m_menutext;
 
+	CSlider* m_gravSlider;
 	TextLabel* m_GravText;
+	CSlider* m_massSlider;
+	TextLabel* m_MassText;
+	CSlider* m_stiffSlider;
+	TextLabel* m_stiffText;
+	CSlider* m_restDisSlider;
+	TextLabel* m_restDisText;
+	CSlider* m_tearSlider;
+	TextLabel* m_tearText;
+	CSlider* m_dampSlider;
+	TextLabel* m_dampText;
+
 };
 
 #endif // !__SCENEMANAGER_H__

@@ -20,6 +20,9 @@ void SpecialKeyDown(int key, int x, int y);
 void Mouse(int button, int glutState, int x, int y);
 void PassiveMouse(int x, int y);
 
+void resize(int width, int height) {
+	glutReshapeWindow(1024, 576);
+}
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
@@ -43,6 +46,7 @@ int main(int argc, char **argv)
 
 	glutSpecialFunc(SpecialKeyDown);
 	glutSpecialUpFunc(SpecialKeyUp);
+	glutReshapeFunc(resize);
 
 	glutMouseFunc(Mouse); 
 	glutPassiveMotionFunc(PassiveMouse);
@@ -51,6 +55,8 @@ int main(int argc, char **argv)
 
 	return(0);
 }
+
+
 void init()
 {
 	CSceneManager::GetInstance().Init(); //Init the scene manager
