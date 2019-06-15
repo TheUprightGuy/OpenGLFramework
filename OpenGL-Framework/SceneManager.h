@@ -49,6 +49,7 @@ public:
 	void PlayerControls();
 	
 
+
 	glm::vec3 lerpfunc(glm::vec3 vecA, glm::vec3 vecB, float percent)
 	{
 		return(vecA + percent * (vecB - vecA));

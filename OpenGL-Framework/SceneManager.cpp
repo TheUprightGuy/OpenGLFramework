@@ -135,7 +135,7 @@ void CSceneManager::Process()
 	static bool bDebug = false;
 	static float yaw = 0.0f;
 	static float pitch = 0.0f;
-
+	static int seed = 789187;
 	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F4) == INPUT_FIRST_PRESS))
 	{
 		m_Controls = MOUSEFREE;
@@ -148,7 +148,14 @@ void CSceneManager::Process()
 	{
 		m_Controls = THIRDPERSON;
 	}
-	
+	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F5) == INPUT_FIRST_PRESS))
+	{
+		//printf("%f \n", random(1, 1, seed));
+	}
+	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F6) == INPUT_FIRST_PRESS))
+	{
+		seed = (rand() % 1000) + 70000;
+	}
 	switch (m_Controls)
 	{
 	case FIRSTPERSON:

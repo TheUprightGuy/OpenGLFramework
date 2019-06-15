@@ -46,7 +46,7 @@ Terrain::Terrain()
 	m_fWidth = static_cast<float>(m_iNumCols);
 	m_fDepth = static_cast<float>(m_iNumRows);
 
-	m_strFilePath = "cliffs.raw";
+	//m_strFilePath = "cliffs.raw";
 }
 
 Terrain::~Terrain()
@@ -247,29 +247,42 @@ void Terrain::BuildIndexBuffer()
 
 void Terrain::LoadHeightMap()
 {
-	// A height for each vertex
-	std::vector<unsigned char> in(m_iNumRows * m_iNumCols);
-
-	// Open the file.
-	std::ifstream inFile;
-	inFile.open(m_strFilePath.c_str(), std::ios_base::binary);
-
-	if (inFile)
+	if (!m_strFilePath.empty())
 	{
-		// Read the RAW bytes.
-		inFile.read((char*)&in[0], (std::streamsize)in.size());
+		// A height for each vertex
+		std::vector<unsigned char> in(m_iNumRows * m_iNumCols);
 
-		// Done with file.
-		inFile.close();
+		// Open the file.
+		std::ifstream inFile;
+		inFile.open(m_strFilePath.c_str(), std::ios_base::binary);
+
+		if (inFile)
+		{
+			// Read the RAW bytes.
+			inFile.read((char*)&in[0], (std::streamsize)in.size());
+
+			// Done with file.
+			inFile.close();
+		}
+
+		// Copy the array data into a float array, and scale and offset the heights.
+		m_vecHeightMap.resize(m_iNumRows * m_iNumCols, 0);
+		for (UINT i = 0; i < m_iNumRows * m_iNumCols; ++i)
+		{
+			m_vecHeightMap[i] = static_cast<float>(in[i]) * m_fHeightScale + m_fHeightOffset;
+		}
+
 	}
-
-	// Copy the array data into a float array, and scale and offset the heights.
-	m_vecHeightMap.resize(m_iNumRows * m_iNumCols, 0);
-	for (UINT i = 0; i < m_iNumRows * m_iNumCols; ++i)
+	else
 	{
-		m_vecHeightMap[i] = static_cast<float>(in[i]) * m_fHeightScale + m_fHeightOffset;
+		for (int i = 0; i < m_iNumRows; i++)
+		{
+			for (int j = 0; j < m_iNumCols; j++)
+			{
+				m_vecHeightMap[(i * (m_iNumRows)) + j] = /* static_cast<float>(in[i]) **/ m_fHeightScale + m_fHeightOffset;
+			}
+		}
 	}
-
 	std::reverse(m_vecHeightMap.begin(), m_vecHeightMap.end());
 }
 

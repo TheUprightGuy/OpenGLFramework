@@ -30,6 +30,7 @@ namespace utils
 	//{
 	//	return(vecA + percent * (vecB - vecA));
 	//}
+	
 }
 
 

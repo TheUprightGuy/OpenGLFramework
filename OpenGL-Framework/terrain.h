@@ -30,6 +30,15 @@ public:
 	float Average(UINT _a, UINT _b);
 	void Render();
 
+	float random(int x, int y, int fSeed)
+	{
+		int n = x + y * 57;
+		n = (n << 13) ^ n;
+		int t = (n * (n * n * 15731 + fSeed) + 1376312589) & 0x7fffffff;
+		return 1.0 - double(t) * 0.931322574615478515625e-9;
+	}
+
+
 private:
 	GLuint m_vbo;
 	GLuint m_vao;
