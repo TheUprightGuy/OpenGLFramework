@@ -279,7 +279,7 @@ void Terrain::LoadHeightMap()
 		{
 			for (int j = 0; j < m_iNumCols; j++)
 			{
-				m_vecHeightMap[(i * (m_iNumRows)) + j] = /* static_cast<float>(in[i]) **/ m_fHeightScale + m_fHeightOffset;
+				m_vecHeightMap[(i - 1) * (m_iNumRows + 1) + j] = /* static_cast<float>(in[i]) **/ m_fHeightScale + m_fHeightOffset;
 			}
 		}
 	}
