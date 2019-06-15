@@ -41,7 +41,7 @@ Terrain::Terrain()
 {
 	m_iNumCols = 513;
 	m_iNumRows = 513;
-	m_fHeightScale = 0.35f;
+	m_fHeightScale = 24.5f;
 	m_fHeightOffset = -20.0f;
 	m_fWidth = static_cast<float>(m_iNumCols);
 	m_fDepth = static_cast<float>(m_iNumRows);
@@ -206,6 +206,7 @@ void Terrain::BuildVertexBuffer()
 		}
 	}
 
+	m_vecVertices.clear();
 	m_vecVertices = vertices;
 
 	glGenVertexArrays(1, &m_vao);
@@ -213,7 +214,84 @@ void Terrain::BuildVertexBuffer()
 
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainVertex), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_vecVertices.size() * sizeof(TerrainVertex), &m_vecVertices[0], GL_DYNAMIC_DRAW);
+}
+
+void Terrain::RebuildVB()
+{
+	float halfWidth = (m_iNumCols - 1) * (0.5f * 1);
+	float halfDepth = (m_iNumRows - 1) * (0.5f * 1);
+
+	float du = 1.0f / (m_iNumCols - 1);
+	float dv = 1.0f / (m_iNumRows - 1);
+	//float du = 0.125f;
+	//float dv = 0.125f;
+
+	CONST int textureTilingNum = 8;
+
+	int iXCounter = 0;
+	int iYCounter = 0;
+
+	std::vector<TerrainVertex> vertices((m_iNumCols * m_iNumRows));
+
+	int CurrentIndex = 0;
+	for (unsigned int i = 0; i < m_iNumRows; ++i)
+	{
+		float z = halfDepth - (i * 1);
+
+		for (unsigned int j = 0; j < m_iNumCols; ++j)
+		{
+			float x = -halfWidth + j;
+			float y = m_vecHeightMap[i * m_iNumCols + j];
+
+			vertices[i * m_iNumCols + j].v3Pos = glm::vec3(x, y, z);
+
+			vertices[i * m_iNumCols + j].v2Tex.x = j * du;
+			vertices[i * m_iNumCols + j].v2Tex.y = i * dv;
+
+			vertices[i * m_iNumCols + j].v3Norm = glm::vec3(0.0f, 1.0f, 0.0f);
+
+			iYCounter++;
+			if (iYCounter > textureTilingNum)
+			{
+				iYCounter = 0;
+			}
+		}
+
+		iXCounter++;
+		if (iXCounter > textureTilingNum)
+		{
+			iXCounter = 0;
+		}
+	}
+
+	// Generate Normals		
+	m_vecNormals.resize(m_iNumRows * m_iNumCols, glm::vec3());
+
+	float invTwoDX = 1.0f / (2.0f * 1.0f); // 1.0f is cell seperation 
+	float invTwoDZ = 1.0f / (2.0f * 1.0f);
+	for (UINT i = 2; i < m_iNumRows - 1; ++i)
+	{
+		for (UINT j = 2; j < m_iNumCols - 1; ++j)
+		{
+			float t = m_vecHeightMap[(i - 1)* m_iNumCols + j];
+			float b = m_vecHeightMap[(i + 1)* m_iNumCols + j];
+			float l = m_vecHeightMap[i * m_iNumCols + j - 1];
+			float r = m_vecHeightMap[i * m_iNumCols + j + 1];
+
+			glm::vec3 tanZ(0.0f, (t - b) * invTwoDZ, 1.0f);
+			glm::vec3 tanX(1.0f, (r - l) * invTwoDX, 0.0f);
+
+			glm::vec3 N = glm::cross(tanZ, tanX);
+			glm::normalize(N);
+			vertices[i * m_iNumCols + j].v3Norm = N;
+		}
+	}
+
+	m_vecVertices.clear();
+	m_vecVertices = vertices;
+
+	glBufferData(GL_ARRAY_BUFFER, m_vecVertices.size() * sizeof(TerrainVertex), &m_vecVertices[0], GL_DYNAMIC_DRAW);
 }
 
 void Terrain::BuildIndexBuffer()
@@ -237,12 +315,14 @@ void Terrain::BuildIndexBuffer()
 			CurrentIndex += 6; // next quad
 		}
 	}
+
+	m_vecIndices = vecIndices;
+
 	GLuint uiEBO;
 	glGenBuffers(1, &uiEBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiEBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, vecIndices.size() * sizeof(int), &vecIndices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_vecIndices.size() * sizeof(int), &m_vecIndices[0], GL_STATIC_DRAW);
 
-	m_vecIndices = vecIndices;
 }
 
 void Terrain::LoadHeightMap()
@@ -275,11 +355,17 @@ void Terrain::LoadHeightMap()
 	}
 	else
 	{
+		m_vecHeightMap.resize(m_iNumRows * m_iNumCols, 0);
+		//for (UINT i = 0; i < m_iNumRows * m_iNumCols; ++i)
+		//{
+		//	m_vecHeightMap[i] = /* static_cast<float>(in[i]) */ m_fHeightScale + m_fHeightOffset;
+		//}
+
 		for (int i = 0; i < m_iNumRows; i++)
 		{
 			for (int j = 0; j < m_iNumCols; j++)
 			{
-				m_vecHeightMap[(i - 1) * (m_iNumRows + 1) + j] = /* static_cast<float>(in[i]) **/ m_fHeightScale + m_fHeightOffset;
+				m_vecHeightMap[(i * m_iNumCols) + j] = totalNoisePerPoint(j, i) * m_fHeightScale + m_fHeightOffset;
 			}
 		}
 	}

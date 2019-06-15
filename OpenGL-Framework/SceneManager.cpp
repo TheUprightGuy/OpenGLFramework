@@ -33,7 +33,7 @@ void CSceneManager::Init()
 	m_program = CProgrammerManager::GetInstance().GetProgram(PHONGLIGHTING);
 
 	oldDeltaTime = 1.0f;
-	m_Controls = THIRDPERSON;
+	m_Controls = MOUSEFREE;
 
 	/*Menus and buttons*/
 	m_menutext = new TextLabel("Press Q for menu", "Resources/Fonts/arial.ttf", glm::vec2(132.0f, 72.0f));
@@ -150,11 +150,15 @@ void CSceneManager::Process()
 	}
 	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F5) == INPUT_FIRST_PRESS))
 	{
-		//printf("%f \n", random(1, 1, seed));
+		m_terrain->RebuildTerrain();
 	}
 	if ((CInput::GetInstance().GetSpecialKeyState(GLUT_KEY_F6) == INPUT_FIRST_PRESS))
 	{
-		seed = (rand() % 1000) + 70000;
+		seed = (rand() % 70000)/* + 70000*/;
+		printf("%d \n", seed);
+
+		m_terrain->setSeed(seed);
+		
 	}
 	switch (m_Controls)
 	{

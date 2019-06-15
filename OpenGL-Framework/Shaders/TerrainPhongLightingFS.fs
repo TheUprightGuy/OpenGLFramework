@@ -31,7 +31,7 @@ void main(void)
     float fScale = mWorldPos.y/fRenderHeight;
 
     const float fRange1 = 0.01f;
-	const float fRange2 = 0.15f;
+	const float fRange2 = 0.07f;
 	const float fRange3 = 0.6f;
     const float fRange4 = 0.85f;
 
