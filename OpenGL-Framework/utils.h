@@ -9,6 +9,7 @@
 #include "Dependencies\glm\gtc\matrix_transform.hpp"
 #include "Dependencies\glm\gtc\type_ptr.hpp"
 
+#include <random>
 #include <vector>
 
 enum MeshType
@@ -24,13 +25,17 @@ struct ScreenCoords
 	GLfloat iY = (GLfloat)glutGet(GLUT_WINDOW_HEIGHT);
 };
 
-namespace utils
+namespace util
 {
 	//glm::vec3 lerpfunc(glm::vec3 vecA, glm::vec3 vecB, float percent)
 	//{
 	//	return(vecA + percent * (vecB - vecA));
 	//}
-	
+
+	static float randomFloat() {
+		float r = (float)rand() / (double)RAND_MAX;
+		return r;
+	}
 }
 
 

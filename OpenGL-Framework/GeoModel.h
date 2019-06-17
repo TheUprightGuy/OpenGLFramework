@@ -12,6 +12,9 @@ public:
 	
 	void SetPosition(glm::vec3 _newPos) { m_position = _newPos; }
 
+protected:
+	glm::vec3 m_position;
+
 private:
 	GLuint m_vbo;
 	GLuint m_vao;
@@ -19,5 +22,4 @@ private:
 
 	CCamera* m_pCamera;
 
-	glm::vec3 m_position;
 };

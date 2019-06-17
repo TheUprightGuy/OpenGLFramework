@@ -145,6 +145,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="ProgramManager.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SpriteMesh.cpp" />
@@ -169,6 +170,8 @@
     <ClInclude Include="light.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ProgramManager.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SpriteMesh.h" />
@@ -182,6 +185,9 @@
     <ClInclude Include="object.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="particle.fs" />
+    <None Include="particle.gs" />
+    <None Include="particle.vs" />
     <None Include="Shaders\CubeMapFS.fs" />
     <None Include="Shaders\CubeMapVS.vs" />
     <None Include="Shaders\FragmentShader.fs" />

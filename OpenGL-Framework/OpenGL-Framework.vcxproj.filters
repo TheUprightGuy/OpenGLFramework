@@ -89,6 +89,12 @@
     <Filter Include="Mesh\Meshs">
       <UniqueIdentifier>{5c36cedc-6058-4f62-9f50-e5f580385988}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{7293be4c-9925-44d0-8a01-b43d6338c63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Shaders">
+      <UniqueIdentifier>{121c0586-b0f0-4e07-80a6-9dc5efc74846}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -150,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +227,12 @@
     </ClInclude>
     <ClInclude Include="ModelMesh.h">
       <Filter>ModelLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +310,15 @@
     </None>
     <None Include="Shaders\TerrainPhongLightingFS.fs">
       <Filter>Terrain</Filter>
+    </None>
+    <None Include="particle.vs">
+      <Filter>Particle\Shaders</Filter>
+    </None>
+    <None Include="particle.gs">
+      <Filter>Particle\Shaders</Filter>
+    </None>
+    <None Include="particle.fs">
+      <Filter>Particle\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
